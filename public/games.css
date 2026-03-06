@@ -538,3 +538,36 @@
         height: 250px;
     }
 }
+
+/* 인게임 하단 광고 */
+.ingame-ad {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ad-placeholder.ingame {
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px dashed rgba(243, 156, 18, 0.3);
+    border-radius: 10px;
+    padding: 15px 30px;
+    display: inline-block;
+    animation: adPulse 2s infinite;
+}
+
+.ad-placeholder.ingame span {
+    color: #f39c12;
+    font-size: 0.95rem;
+}
+
+.ad-placeholder.ingame small {
+    display: block;
+    margin-top: 5px;
+    color: #666;
+    font-size: 0.75rem;
+}
+
+@keyframes adPulse {
+    0%, 100% { border-color: rgba(243, 156, 18, 0.3); }
+    50% { border-color: rgba(243, 156, 18, 0.6); }
+}

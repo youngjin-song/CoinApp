@@ -61,6 +61,16 @@ function startGame(gameType) {
     }
 }
 
+// 인게임 하단 광고 HTML
+const inGameAdHTML = `
+    <div class="ingame-ad">
+        <div class="ad-placeholder ingame">
+            <span>📢 광고 (320x100)</span>
+            <small>게임 중 노출 - 높은 전환율</small>
+        </div>
+    </div>
+`;
+
 // 1. 스피드 클리커 게임
 function startClickerGame(container) {
     container.innerHTML = `
@@ -71,6 +81,7 @@ function startClickerGame(container) {
             <div class="score">클릭: <span id="clickCount">0</span></div>
             <button class="click-btn" id="clickBtn" disabled>👆</button>
             <button class="start-btn" id="startClicker" onclick="beginClickerGame()">시작!</button>
+            ${inGameAdHTML}
         </div>
     `;
 }
@@ -124,6 +135,7 @@ function startReactionGame(container) {
             <div class="reaction-box waiting" id="reactionBox">기다리세요...</div>
             <div class="reaction-result" id="reactionResult"></div>
             <button class="start-btn" id="startReaction" onclick="beginReactionGame()">시작!</button>
+            ${inGameAdHTML}
         </div>
     `;
 }
@@ -208,6 +220,7 @@ function startMemoryGame(container) {
                 ).join('')}
             </div>
             <button class="start-btn" id="startMemory" onclick="beginMemoryRound()">시작!</button>
+            ${inGameAdHTML}
         </div>
     `;
 }
@@ -319,6 +332,7 @@ function startSlotGame(container) {
                 <p>💎💎💎 = 200코인 | 7️⃣7️⃣7️⃣ = 100코인</p>
                 <p>같은 심볼 3개 = 50코인 | 2개 = 10코인</p>
             </div>
+            ${inGameAdHTML}
         </div>
     `;
 }
