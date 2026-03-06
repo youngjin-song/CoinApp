@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoinMiner - 코인 채굴 앱</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CoinMiner</h1>
+            <p class="subtitle">Web-based Cryptocurrency Mining</p>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">⛏️</div>
+                <div class="stat-info">
+                    <span class="stat-label">채굴 상태</span>
+                    <span class="stat-value" id="miningStatus">대기 중</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💰</div>
+                <div class="stat-info">
+                    <span class="stat-label">내 코인</span>
+                    <span class="stat-value" id="myCoins">0</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-info">
+                    <span class="stat-label">해시레이트</span>
+                    <span class="stat-value" id="hashRate">0 H/s</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🔗</div>
+                <div class="stat-info">
+                    <span class="stat-label">총 블록</span>
+                    <span class="stat-value" id="totalBlocks">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mining-section">
+            <div class="mining-control">
+                <button id="mineBtn" class="mine-btn">
+                    <span class="btn-icon">⛏️</span>
+                    <span class="btn-text">채굴 시작</span>
+                </button>
+                <div class="difficulty-display">
+                    난이도: <span id="difficulty">4</span>
+                </div>
+            </div>
+
+            <div class="progress-section">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-info">
+                    <span>Nonce: <span id="currentNonce">0</span></span>
+                    <span>시도: <span id="attempts">0</span></span>
+                </div>
+            </div>
+
+            <div class="hash-display">
+                <label>현재 해시:</label>
+                <code id="currentHash">-</code>
+            </div>
+        </div>
+
+        <div class="network-section">
+            <h2>네트워크 정보</h2>
+            <div class="network-stats">
+                <div class="network-stat">
+                    <span class="label">접속 채굴자:</span>
+                    <span class="value" id="totalMiners">0</span>
+                </div>
+                <div class="network-stat">
+                    <span class="label">총 채굴 코인:</span>
+                    <span class="value" id="totalMinedCoins">0</span>
+                </div>
+                <div class="network-stat">
+                    <span class="label">내 채굴 블록:</span>
+                    <span class="value" id="myBlocks">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="blocks-section">
+            <h2>최근 블록</h2>
+            <div class="blocks-list" id="blocksList">
+                <!-- 블록들이 여기에 추가됨 -->
+            </div>
+        </div>
+
+        <div class="log-section">
+            <h2>채굴 로그</h2>
+            <div class="log-container" id="logContainer">
+                <!-- 로그가 여기에 추가됨 -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+    <script src="miner.js"></script>
+</body>
+</html>
