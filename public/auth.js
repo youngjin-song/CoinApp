@@ -56,9 +56,16 @@ function loginWithGoogle() {
 
 // 로그아웃
 function logout() {
+    // 실시간 리스너 해제
+    if (unsubscribeUserData) {
+        unsubscribeUserData();
+        unsubscribeUserData = null;
+    }
+
     firebase.auth().signOut()
         .then(() => {
             currentUser = null;
+            window.userCoins = 0;
             console.log('로그아웃 완료');
         })
         .catch((error) => {
@@ -66,18 +73,18 @@ function logout() {
         });
 }
 
-// 사용자 데이터 로드/생성
+// 실시간 리스너 해제 함수
+let unsubscribeUserData = null;
+
+// 사용자 데이터 로드/생성 + 실시간 동기화
 async function loadUserData(user) {
     try {
         const userRef = db.collection('users').doc(user.uid);
         const userSnap = await userRef.get();
 
-        let userData;
-        if (userSnap.exists) {
-            userData = userSnap.data();
-        } else {
+        if (!userSnap.exists) {
             // 새 사용자 생성
-            userData = {
+            const newUserData = {
                 uid: user.uid,
                 email: user.email,
                 displayName: user.displayName,
@@ -88,15 +95,24 @@ async function loadUserData(user) {
                 createdAt: new Date().toISOString(),
                 lastLogin: new Date().toISOString()
             };
-            await userRef.set(userData);
+            await userRef.set(newUserData);
         }
 
-        // 전역 변수에 저장
-        window.userCoins = userData.coins || 0;
+        // 실시간 리스너 설정 (다른 창에서 변경되면 자동 업데이트)
+        if (unsubscribeUserData) {
+            unsubscribeUserData(); // 기존 리스너 해제
+        }
 
-        // DOM 업데이트
-        updateUserStats(userData);
-        console.log('Firebase 코인 로드:', userData.coins);
+        unsubscribeUserData = userRef.onSnapshot((doc) => {
+            if (doc.exists) {
+                const userData = doc.data();
+                window.userCoins = userData.coins || 0;
+                updateUserStats(userData);
+                console.log('실시간 코인 업데이트:', userData.coins);
+            }
+        });
+
+        console.log('실시간 동기화 시작');
 
     } catch (error) {
         console.error('사용자 데이터 로드 실패:', error);
