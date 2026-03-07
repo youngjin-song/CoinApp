@@ -1,22 +1,42 @@
 // 게임 시스템
 class GameManager {
     constructor() {
-        this.totalCoins = parseInt(localStorage.getItem('gameCoins') || '0');
+        this.totalCoins = 0;
         this.currentGame = null;
         this.pendingReward = 0;
         this.adMultiplier = 1;
 
-        this.updateCoinDisplay();
+        // Firebase에서 코인 로드 대기
+        this.waitForFirebase();
     }
 
-    saveCoins() {
-        localStorage.setItem('gameCoins', this.totalCoins.toString());
-        this.updateCoinDisplay();
+    async waitForFirebase() {
+        // Firebase 로드 대기 (최대 5초)
+        let attempts = 0;
+        while (!window.firebaseDB && attempts < 50) {
+            await new Promise(r => setTimeout(r, 100));
+            attempts++;
+        }
+
+        // 현재 사용자의 코인 가져오기
+        if (currentUser && window.firebaseDB) {
+            try {
+                const { db, doc, getDoc } = window.firebaseDB;
+                const userRef = doc(db, 'users', currentUser.uid);
+                const userSnap = await getDoc(userRef);
+                if (userSnap.exists()) {
+                    this.totalCoins = userSnap.data().coins || 0;
+                    this.updateCoinDisplay();
+                }
+            } catch (e) {
+                console.log('코인 로드 대기 중...');
+            }
+        }
     }
 
     addCoins(amount) {
         this.totalCoins += amount;
-        this.saveCoins();
+        this.updateCoinDisplay();
         // Firebase에 코인 저장
         if (typeof addUserCoins === 'function') {
             addUserCoins(amount);
@@ -24,7 +44,8 @@ class GameManager {
     }
 
     updateCoinDisplay() {
-        document.getElementById('totalCoins').textContent = this.totalCoins.toLocaleString();
+        const el = document.getElementById('totalCoins');
+        if (el) el.textContent = this.totalCoins.toLocaleString();
     }
 
     showRewardAd(reward) {

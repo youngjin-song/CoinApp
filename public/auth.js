@@ -174,8 +174,19 @@ function updateAuthUI(isLoggedIn) {
 }
 
 function updateUserStats(data) {
-    const coinsEl = document.getElementById('userCoins');
-    if (coinsEl) coinsEl.textContent = data.coins?.toLocaleString() || '0';
+    const coins = data.coins || 0;
+
+    // 상단 프로필의 코인
+    const userCoinsEl = document.getElementById('userCoins');
+    if (userCoinsEl) userCoinsEl.textContent = coins.toLocaleString();
+
+    // 메인 페이지의 내 코인
+    const myCoinsEl = document.getElementById('myCoins');
+    if (myCoinsEl) myCoinsEl.textContent = coins.toLocaleString();
+
+    // 게임 페이지의 총 코인
+    const totalCoinsEl = document.getElementById('totalCoins');
+    if (totalCoinsEl) totalCoinsEl.textContent = coins.toLocaleString();
 
     const blocksEl = document.getElementById('userBlocks');
     if (blocksEl) blocksEl.textContent = data.minedBlocks?.toLocaleString() || '0';
