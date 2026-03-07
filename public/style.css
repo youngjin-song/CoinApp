@@ -335,6 +335,237 @@ header h1 {
     background: rgba(243, 156, 18, 0.8);
 }
 
+/* 리더보드 */
+.leaderboard {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 25px;
+    margin-top: 20px;
+}
+
+.leaderboard h2 {
+    color: #f39c12;
+    margin-bottom: 20px;
+}
+
+.leaderboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.leaderboard-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+.leaderboard-rank {
+    font-size: 1.3rem;
+    font-weight: bold;
+    width: 40px;
+    text-align: center;
+}
+
+.leaderboard-rank.gold { color: #ffd700; }
+.leaderboard-rank.silver { color: #c0c0c0; }
+.leaderboard-rank.bronze { color: #cd7f32; }
+
+.leaderboard-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #f39c12;
+}
+
+.leaderboard-name {
+    flex: 1;
+    color: #fff;
+    font-weight: 500;
+}
+
+.leaderboard-coins {
+    color: #2ecc71;
+    font-weight: bold;
+}
+
+.no-data {
+    color: #666;
+    text-align: center;
+    padding: 20px;
+}
+
+/* 친구 초대 */
+.referral-section {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.referral-btn {
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(45deg, #9b59b6, #8e44ad);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
+}
+
+.referral-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(155, 89, 182, 0.6);
+}
+
+/* 친구 초대 모달 */
+.referral-content {
+    max-width: 450px;
+}
+
+.referral-code-box {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    border-radius: 15px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.referral-code-box .label {
+    display: block;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.referral-code-box .code {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #f39c12;
+    letter-spacing: 5px;
+}
+
+.referral-link-box input {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.referral-buttons {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.btn-copy, .btn-share {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-copy {
+    background: #3498db;
+    color: white;
+}
+
+.btn-share {
+    background: #2ecc71;
+    color: white;
+}
+
+.btn-close {
+    padding: 10px 30px;
+    border: 1px solid #555;
+    border-radius: 20px;
+    background: transparent;
+    color: #888;
+    cursor: pointer;
+}
+
+/* 출석 체크 모달 */
+.daily-reward {
+    max-width: 500px;
+}
+
+.streak-display {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.streak-number {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #f39c12;
+}
+
+.streak-label {
+    display: block;
+    color: #888;
+}
+
+.daily-calendar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.day-box {
+    width: 60px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid transparent;
+}
+
+.day-box.checked {
+    background: rgba(46, 204, 113, 0.2);
+    border-color: #2ecc71;
+}
+
+.day-box.today {
+    border-color: #f39c12;
+    box-shadow: 0 0 15px rgba(243, 156, 18, 0.5);
+}
+
+.day-num {
+    display: block;
+    font-size: 0.75rem;
+    color: #888;
+}
+
+.day-reward {
+    display: block;
+    font-size: 0.9rem;
+    color: #2ecc71;
+    font-weight: bold;
+}
+
+.reward-display {
+    font-size: 2rem;
+    color: #2ecc71;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.reward-display span {
+    color: #f39c12;
+}
+
 /* 반응형 */
 @media (max-width: 768px) {
     header h1 {
@@ -354,5 +585,14 @@ header h1 {
     .block-item {
         grid-template-columns: 1fr;
         gap: 10px;
+    }
+
+    .daily-calendar {
+        gap: 5px;
+    }
+
+    .day-box {
+        width: 45px;
+        padding: 8px 5px;
     }
 }

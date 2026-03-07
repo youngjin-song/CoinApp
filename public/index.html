@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f39c12">
+    <meta name="description" content="코인 채굴하고 게임하고 보상받자!">
     <title>CoinMiner - 코인 채굴 앱</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="auth.css">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6321935671066738"
         crossorigin="anonymous"></script>
 </head>
@@ -109,10 +113,36 @@
                 <!-- 로그가 여기에 추가됨 -->
             </div>
         </div>
+
+        <!-- 리더보드 -->
+        <div class="leaderboard">
+            <h2>🏆 코인 랭킹 TOP 10</h2>
+            <div class="leaderboard-list" id="leaderboardList">
+                <p class="no-data">로딩 중...</p>
+            </div>
+        </div>
+
+        <!-- 친구 초대 버튼 -->
+        <div class="referral-section">
+            <button onclick="showReferralStats()" class="referral-btn">
+                👥 친구 초대하고 50코인 받기
+            </button>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
     <script src="auth.js"></script>
+    <script src="daily.js"></script>
+    <script src="referral.js"></script>
+    <script src="leaderboard.js"></script>
     <script src="miner.js"></script>
+    <script>
+        // PWA Service Worker 등록
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(() => console.log('Service Worker 등록 완료'))
+                .catch((err) => console.log('Service Worker 등록 실패:', err));
+        }
+    </script>
 </body>
 </html>
