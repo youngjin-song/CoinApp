@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoinMiner - 관리자</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <style>
+        .admin-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .admin-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .admin-header h1 {
+            color: #e74c3c;
+        }
+        .login-section {
+            background: rgba(255,255,255,0.05);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 400px;
+            margin: 50px auto;
+            text-align: center;
+        }
+        .login-section input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            font-size: 1rem;
+        }
+        .login-section button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 8px;
+            background: #e74c3c;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .admin-panel {
+            display: none;
+        }
+        .admin-panel.active {
+            display: block;
+        }
+        .admin-section {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .admin-section h2 {
+            color: #f39c12;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        .admin-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+        .btn-warning {
+            background: #f39c12;
+            color: white;
+        }
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+        .btn-success {
+            background: #2ecc71;
+            color: white;
+        }
+        .admin-btn:hover {
+            transform: scale(1.05);
+        }
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .user-table th, .user-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .user-table th {
+            color: #f39c12;
+            background: rgba(0,0,0,0.3);
+        }
+        .user-table tr:hover {
+            background: rgba(255,255,255,0.05);
+        }
+        .user-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+        .coin-input {
+            width: 80px;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            text-align: center;
+        }
+        .difficulty-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .difficulty-display {
+            font-size: 2rem;
+            color: #f39c12;
+            font-weight: bold;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-box {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .stat-box .value {
+            font-size: 1.8rem;
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        .stat-box .label {
+            color: #888;
+            font-size: 0.85rem;
+        }
+        .log-box {
+            background: rgba(0,0,0,0.4);
+            padding: 15px;
+            border-radius: 10px;
+            max-height: 150px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+        .log-entry {
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .log-entry.success { color: #2ecc71; }
+        .log-entry.error { color: #e74c3c; }
+        .log-entry.info { color: #3498db; }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>🔐 관리자 페이지</h1>
+            <p>CoinMiner 관리 콘솔</p>
+        </div>
+
+        <!-- 로그인 섹션 -->
+        <div class="login-section" id="loginSection">
+            <h2>관리자 로그인</h2>
+            <input type="password" id="adminPassword" placeholder="관리자 비밀번호">
+            <button onclick="adminLogin()">로그인</button>
+        </div>
+
+        <!-- 관리자 패널 -->
+        <div class="admin-panel" id="adminPanel">
+
+            <!-- 통계 -->
+            <div class="admin-section">
+                <h2>📊 전체 통계</h2>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="value" id="totalUsers">0</div>
+                        <div class="label">총 사용자</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="value" id="totalCoins">0</div>
+                        <div class="label">총 코인</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="value" id="totalBlocks">0</div>
+                        <div class="label">총 채굴 블록</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="value" id="currentDifficulty">-</div>
+                        <div class="label">현재 난이도</div>
+                    </div>
+                </div>
+                <button class="admin-btn btn-primary" onclick="loadStats()">🔄 새로고침</button>
+            </div>
+
+            <!-- 난이도 조절 -->
+            <div class="admin-section">
+                <h2>⛏️ 채굴 난이도 조절</h2>
+                <div class="difficulty-control">
+                    <button class="admin-btn btn-warning" onclick="adjustDifficulty(-1)">➖ 감소</button>
+                    <span class="difficulty-display" id="difficultyDisplay">4</span>
+                    <button class="admin-btn btn-warning" onclick="adjustDifficulty(1)">➕ 증가</button>
+                    <button class="admin-btn btn-danger" onclick="resetDifficulty()">초기화 (4)</button>
+                </div>
+            </div>
+
+            <!-- 전체 초기화 -->
+            <div class="admin-section">
+                <h2>🗑️ 데이터 초기화</h2>
+                <button class="admin-btn btn-danger" onclick="resetAllCoins()">💰 전체 코인 초기화</button>
+                <button class="admin-btn btn-danger" onclick="resetAllBlocks()">🔗 전체 블록 수 초기화</button>
+                <button class="admin-btn btn-danger" onclick="resetAllData()">⚠️ 전체 데이터 초기화</button>
+            </div>
+
+            <!-- 사용자 관리 -->
+            <div class="admin-section">
+                <h2>👥 사용자 관리</h2>
+                <button class="admin-btn btn-primary" onclick="loadUsers()">사용자 목록 불러오기</button>
+                <table class="user-table" id="userTable">
+                    <thead>
+                        <tr>
+                            <th>사용자</th>
+                            <th>이메일</th>
+                            <th>코인</th>
+                            <th>블록</th>
+                            <th>액션</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userTableBody">
+                        <tr><td colspan="5" style="text-align:center;color:#888;">목록을 불러오세요</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 로그 -->
+            <div class="admin-section">
+                <h2>📝 관리 로그</h2>
+                <div class="log-box" id="adminLog">
+                    <div class="log-entry info">관리자 패널 시작됨</div>
+                </div>
+            </div>
+
+            <div style="text-align:center; margin-top:20px;">
+                <a href="/" style="color:#888;">← 메인으로 돌아가기</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 관리자 비밀번호 (실제 서비스에서는 서버에서 검증해야 함)
+        const ADMIN_PASSWORD = 'coinadmin123';
+
+        let db = null;
+
+        // Firebase 초기화
+        const firebaseConfig = {
+            apiKey: "AIzaSyD80dyDucxh5OptV5x1zi7mCquaTTPXJBo",
+            authDomain: "coinminer-7ad43.firebaseapp.com",
+            projectId: "coinminer-7ad43",
+            storageBucket: "coinminer-7ad43.firebasestorage.app",
+            messagingSenderId: "979902173190",
+            appId: "1:979902173190:web:58b8540a220dcd66b67387"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        db = firebase.firestore();
+
+        // 관리자 로그인
+        function adminLogin() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === ADMIN_PASSWORD) {
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('adminPanel').classList.add('active');
+                addLog('관리자 로그인 성공', 'success');
+                loadStats();
+                fetchDifficulty();
+            } else {
+                alert('비밀번호가 틀렸습니다!');
+                addLog('로그인 실패 - 잘못된 비밀번호', 'error');
+            }
+        }
+
+        // Enter 키로 로그인
+        document.getElementById('adminPassword').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') adminLogin();
+        });
+
+        // 로그 추가
+        function addLog(message, type = 'info') {
+            const log = document.getElementById('adminLog');
+            const time = new Date().toLocaleTimeString();
+            log.innerHTML = `<div class="log-entry ${type}">[${time}] ${message}</div>` + log.innerHTML;
+        }
+
+        // 통계 로드
+        async function loadStats() {
+            try {
+                const snapshot = await db.collection('users').get();
+                let totalUsers = 0;
+                let totalCoins = 0;
+                let totalBlocks = 0;
+
+                snapshot.forEach(doc => {
+                    totalUsers++;
+                    totalCoins += doc.data().coins || 0;
+                    totalBlocks += doc.data().minedBlocks || 0;
+                });
+
+                document.getElementById('totalUsers').textContent = totalUsers;
+                document.getElementById('totalCoins').textContent = totalCoins.toLocaleString();
+                document.getElementById('totalBlocks').textContent = totalBlocks;
+
+                addLog('통계 로드 완료', 'success');
+            } catch (error) {
+                addLog('통계 로드 실패: ' + error.message, 'error');
+            }
+        }
+
+        // 난이도 가져오기
+        async function fetchDifficulty() {
+            try {
+                const response = await fetch('/api/difficulty');
+                const data = await response.json();
+                document.getElementById('difficultyDisplay').textContent = data.difficulty;
+                document.getElementById('currentDifficulty').textContent = data.difficulty;
+            } catch (error) {
+                document.getElementById('difficultyDisplay').textContent = '?';
+            }
+        }
+
+        // 난이도 조절
+        async function adjustDifficulty(delta) {
+            try {
+                const response = await fetch('/api/admin/difficulty', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ delta, password: ADMIN_PASSWORD })
+                });
+                const data = await response.json();
+                if (data.success) {
+                    document.getElementById('difficultyDisplay').textContent = data.difficulty;
+                    document.getElementById('currentDifficulty').textContent = data.difficulty;
+                    addLog(`난이도 변경: ${data.difficulty}`, 'success');
+                }
+            } catch (error) {
+                addLog('난이도 조절 실패', 'error');
+            }
+        }
+
+        // 난이도 초기화
+        async function resetDifficulty() {
+            if (!confirm('난이도를 4로 초기화하시겠습니까?')) return;
+            try {
+                const response = await fetch('/api/admin/difficulty/reset', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password: ADMIN_PASSWORD })
+                });
+                const data = await response.json();
+                if (data.success) {
+                    document.getElementById('difficultyDisplay').textContent = data.difficulty;
+                    document.getElementById('currentDifficulty').textContent = data.difficulty;
+                    addLog('난이도 초기화 완료', 'success');
+                }
+            } catch (error) {
+                addLog('난이도 초기화 실패', 'error');
+            }
+        }
+
+        // 사용자 목록 로드
+        async function loadUsers() {
+            try {
+                const snapshot = await db.collection('users').orderBy('coins', 'desc').get();
+                const tbody = document.getElementById('userTableBody');
+                tbody.innerHTML = '';
+
+                snapshot.forEach(doc => {
+                    const user = doc.data();
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>
+                                <img src="${user.photoURL || 'https://via.placeholder.com/30'}" class="user-avatar" onerror="this.src='https://via.placeholder.com/30'">
+                                ${user.displayName || '익명'}
+                            </td>
+                            <td>${user.email || '-'}</td>
+                            <td>
+                                <input type="number" class="coin-input" id="coin_${doc.id}" value="${user.coins || 0}">
+                            </td>
+                            <td>${user.minedBlocks || 0}</td>
+                            <td>
+                                <button class="admin-btn btn-success" onclick="updateUserCoins('${doc.id}')" style="padding:5px 10px;">저장</button>
+                                <button class="admin-btn btn-danger" onclick="resetUserData('${doc.id}')" style="padding:5px 10px;">초기화</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                addLog(`사용자 ${snapshot.size}명 로드됨`, 'success');
+            } catch (error) {
+                addLog('사용자 로드 실패: ' + error.message, 'error');
+            }
+        }
+
+        // 사용자 코인 수정
+        async function updateUserCoins(uid) {
+            const newCoins = parseInt(document.getElementById('coin_' + uid).value) || 0;
+            if (!confirm(`코인을 ${newCoins}으로 변경하시겠습니까?`)) return;
+
+            try {
+                await db.collection('users').doc(uid).update({ coins: newCoins });
+                addLog(`사용자 ${uid.substring(0,8)}... 코인 변경: ${newCoins}`, 'success');
+                loadStats();
+            } catch (error) {
+                addLog('코인 수정 실패: ' + error.message, 'error');
+            }
+        }
+
+        // 사용자 데이터 초기화
+        async function resetUserData(uid) {
+            if (!confirm('이 사용자의 코인과 블록 수를 초기화하시겠습니까?')) return;
+
+            try {
+                await db.collection('users').doc(uid).update({
+                    coins: 0,
+                    minedBlocks: 0
+                });
+                addLog(`사용자 ${uid.substring(0,8)}... 초기화 완료`, 'success');
+                loadUsers();
+                loadStats();
+            } catch (error) {
+                addLog('사용자 초기화 실패: ' + error.message, 'error');
+            }
+        }
+
+        // 전체 코인 초기화
+        async function resetAllCoins() {
+            if (!confirm('⚠️ 모든 사용자의 코인을 0으로 초기화하시겠습니까?\n이 작업은 되돌릴 수 없습니다!')) return;
+            if (!confirm('정말로 초기화하시겠습니까? (최종 확인)')) return;
+
+            try {
+                const snapshot = await db.collection('users').get();
+                const batch = db.batch();
+
+                snapshot.forEach(doc => {
+                    batch.update(doc.ref, { coins: 0 });
+                });
+
+                await batch.commit();
+                addLog(`전체 코인 초기화 완료 (${snapshot.size}명)`, 'success');
+                loadStats();
+                loadUsers();
+            } catch (error) {
+                addLog('전체 코인 초기화 실패: ' + error.message, 'error');
+            }
+        }
+
+        // 전체 블록 수 초기화
+        async function resetAllBlocks() {
+            if (!confirm('⚠️ 모든 사용자의 채굴 블록 수를 초기화하시겠습니까?')) return;
+
+            try {
+                const snapshot = await db.collection('users').get();
+                const batch = db.batch();
+
+                snapshot.forEach(doc => {
+                    batch.update(doc.ref, { minedBlocks: 0 });
+                });
+
+                await batch.commit();
+                addLog(`전체 블록 수 초기화 완료 (${snapshot.size}명)`, 'success');
+                loadStats();
+            } catch (error) {
+                addLog('전체 블록 초기화 실패: ' + error.message, 'error');
+            }
+        }
+
+        // 전체 데이터 초기화
+        async function resetAllData() {
+            if (!confirm('⚠️⚠️⚠️ 모든 사용자의 코인, 블록, 출석 데이터를 초기화하시겠습니까?\n이 작업은 되돌릴 수 없습니다!')) return;
+            if (!confirm('정말로 모든 데이터를 초기화하시겠습니까? (최종 확인)')) return;
+
+            try {
+                const snapshot = await db.collection('users').get();
+                const batch = db.batch();
+
+                snapshot.forEach(doc => {
+                    batch.update(doc.ref, {
+                        coins: 0,
+                        minedBlocks: 0,
+                        dailyStreak: 0,
+                        lastDailyCheck: null,
+                        gamesPlayed: 0
+                    });
+                });
+
+                await batch.commit();
+                addLog(`전체 데이터 초기화 완료 (${snapshot.size}명)`, 'success');
+                loadStats();
+                loadUsers();
+            } catch (error) {
+                addLog('전체 데이터 초기화 실패: ' + error.message, 'error');
+            }
+        }
+    </script>
+</body>
+</html>

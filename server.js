@@ -43,8 +43,14 @@ function isValidHash(hash) {
     return hash.startsWith('0'.repeat(difficulty));
 }
 
+// JSON 파싱
+app.use(express.json());
+
 // 정적 파일 제공
 app.use(express.static(path.join(__dirname, 'public')));
+
+// 관리자 비밀번호
+const ADMIN_PASSWORD = 'coinadmin123';
 
 // API 엔드포인트
 app.get('/api/blockchain', (req, res) => {
@@ -64,6 +70,50 @@ app.get('/api/stats', (req, res) => {
         totalMinedCoins,
         lastBlock: blockchain[blockchain.length - 1]
     });
+});
+
+// 난이도 조회 API
+app.get('/api/difficulty', (req, res) => {
+    res.json({ difficulty });
+});
+
+// 관리자: 난이도 조절
+app.post('/api/admin/difficulty', (req, res) => {
+    const { delta, password } = req.body;
+    if (password !== ADMIN_PASSWORD) {
+        return res.status(403).json({ success: false, error: 'Unauthorized' });
+    }
+    difficulty = Math.max(1, Math.min(8, difficulty + delta));
+    broadcastDifficultyChange();
+    console.log(`🔧 관리자: 난이도 변경 → ${difficulty}`);
+    res.json({ success: true, difficulty });
+});
+
+// 관리자: 난이도 초기화
+app.post('/api/admin/difficulty/reset', (req, res) => {
+    const { password } = req.body;
+    if (password !== ADMIN_PASSWORD) {
+        return res.status(403).json({ success: false, error: 'Unauthorized' });
+    }
+    difficulty = 4;
+    broadcastDifficultyChange();
+    console.log(`🔧 관리자: 난이도 초기화 → 4`);
+    res.json({ success: true, difficulty });
+});
+
+// 관리자: 블록체인 초기화
+app.post('/api/admin/blockchain/reset', (req, res) => {
+    const { password } = req.body;
+    if (password !== ADMIN_PASSWORD) {
+        return res.status(403).json({ success: false, error: 'Unauthorized' });
+    }
+    blockchain = [createGenesisBlock()];
+    totalMinedCoins = 0;
+    difficulty = 4;
+    broadcastStats();
+    broadcastDifficultyChange();
+    console.log(`🔧 관리자: 블록체인 초기화`);
+    res.json({ success: true, message: 'Blockchain reset' });
 });
 
 const server = app.listen(PORT, () => {
