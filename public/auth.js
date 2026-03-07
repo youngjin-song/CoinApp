@@ -121,7 +121,12 @@ async function loadUserData(user) {
 
 // 코인 추가
 async function addUserCoins(amount) {
-    if (!currentUser || !db) return false;
+    console.log('addUserCoins 호출:', amount, 'currentUser:', !!currentUser, 'db:', !!db);
+
+    if (!currentUser || !db) {
+        console.error('로그인되지 않음 또는 DB 없음');
+        return false;
+    }
 
     try {
         const userRef = db.collection('users').doc(currentUser.uid);
@@ -130,10 +135,7 @@ async function addUserCoins(amount) {
             lastLogin: new Date().toISOString()
         });
 
-        // UI 업데이트
-        window.userCoins = (window.userCoins || 0) + amount;
-        updateUserStats({ coins: window.userCoins });
-
+        console.log('Firebase 코인 추가 성공:', amount);
         return true;
     } catch (error) {
         console.error('코인 추가 실패:', error);

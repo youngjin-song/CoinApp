@@ -8,13 +8,16 @@ class GameManager {
     }
 
     addCoins(amount) {
+        console.log('GameManager.addCoins 호출:', amount);
+
         // Firebase에 코인 저장 (auth.js의 함수 사용)
         if (typeof addUserCoins === 'function') {
-            addUserCoins(amount);
+            addUserCoins(amount).then((success) => {
+                console.log('코인 저장 결과:', success);
+            });
+        } else {
+            console.error('addUserCoins 함수 없음!');
         }
-        // 로컬 표시도 업데이트 (실시간 리스너가 곧 덮어씀)
-        this.totalCoins = (window.userCoins || 0) + amount;
-        this.updateCoinDisplay();
     }
 
     updateCoinDisplay() {
