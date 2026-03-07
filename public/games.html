@@ -20,7 +20,7 @@
 
         <!-- 상단 광고 배너 -->
         <div class="ad-banner ad-top" id="adTop">
-            <div class="ad-placeholder">
+            <div class="ad-placeholder" data-slot="topBanner">
                 <span>📢 광고 영역 (728x90)</span>
                 <small>Google AdSense / 광고 네트워크 연동 가능</small>
             </div>
@@ -60,7 +60,7 @@
         <!-- 사이드 광고 + 게임 영역 -->
         <div class="game-layout">
             <div class="ad-sidebar ad-left" id="adLeft">
-                <div class="ad-placeholder vertical">
+                <div class="ad-placeholder vertical" data-slot="sidebarLeft">
                     <span>📢</span>
                     <small>160x600</small>
                 </div>
@@ -73,7 +73,7 @@
             </div>
 
             <div class="ad-sidebar ad-right" id="adRight">
-                <div class="ad-placeholder vertical">
+                <div class="ad-placeholder vertical" data-slot="sidebarRight">
                     <span>📢</span>
                     <small>160x600</small>
                 </div>
@@ -82,7 +82,7 @@
 
         <!-- 하단 광고 배너 -->
         <div class="ad-banner ad-bottom" id="adBottom">
-            <div class="ad-placeholder">
+            <div class="ad-placeholder" data-slot="bottomBanner">
                 <span>📢 광고 영역 (728x90)</span>
                 <small>게임 완료 후 보상형 광고 표시</small>
             </div>
@@ -125,6 +125,7 @@
         </div>
     </div>
 
+    <script src="ads-config.js"></script>
     <script src="games.js"></script>
 </body>
 </html>

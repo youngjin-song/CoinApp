@@ -64,7 +64,7 @@ function startGame(gameType) {
 // 인게임 하단 광고 HTML
 const inGameAdHTML = `
     <div class="ingame-ad">
-        <div class="ad-placeholder ingame">
+        <div class="ad-placeholder ingame" data-slot="inGame">
             <span>📢 광고 (320x100)</span>
             <small>게임 중 노출 - 높은 전환율</small>
         </div>

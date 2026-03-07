@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // 블록체인 데이터
 let blockchain = [];
