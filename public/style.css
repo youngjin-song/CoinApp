@@ -597,6 +597,37 @@ header h1 {
     }
 }
 
+/* 언어 선택기 */
+.language-selector {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.language-selector select {
+    padding: 8px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    outline: none;
+}
+
+.language-selector select:hover {
+    border-color: #f39c12;
+}
+
+.language-selector select option {
+    background: #1a1a2e;
+    color: #fff;
+}
+
+header {
+    position: relative;
+}
+
 /* 면책 조항 */
 .disclaimer {
     margin-top: 40px;

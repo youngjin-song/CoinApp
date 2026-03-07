@@ -23,37 +23,37 @@
 
     <div class="container">
         <header>
-            <h1>CoinMiner</h1>
-            <p class="subtitle">Web-based Cryptocurrency Mining</p>
-            <a href="/games.html" target="_blank" class="games-link">🎮 미니게임으로 코인 벌기</a>
+            <h1 data-i18n="appName">CoinMiner</h1>
+            <p class="subtitle" data-i18n="subtitle">Web-based Cryptocurrency Mining</p>
+            <a href="/games.html" target="_blank" class="games-link" data-i18n="gamesLink">🎮 미니게임으로 코인 벌기</a>
         </header>
 
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-icon">⛏️</div>
                 <div class="stat-info">
-                    <span class="stat-label">채굴 상태</span>
-                    <span class="stat-value" id="miningStatus">대기 중</span>
+                    <span class="stat-label" data-i18n="miningStatus">채굴 상태</span>
+                    <span class="stat-value" id="miningStatus" data-i18n="waiting">대기 중</span>
                 </div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon">💰</div>
                 <div class="stat-info">
-                    <span class="stat-label">내 코인</span>
+                    <span class="stat-label" data-i18n="myCoins">내 코인</span>
                     <span class="stat-value" id="myCoins">0</span>
                 </div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon">⚡</div>
                 <div class="stat-info">
-                    <span class="stat-label">해시레이트</span>
+                    <span class="stat-label" data-i18n="hashRate">해시레이트</span>
                     <span class="stat-value" id="hashRate">0 H/s</span>
                 </div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon">🔗</div>
                 <div class="stat-info">
-                    <span class="stat-label">총 블록</span>
+                    <span class="stat-label" data-i18n="totalBlocks">총 블록</span>
                     <span class="stat-value" id="totalBlocks">0</span>
                 </div>
             </div>
@@ -63,10 +63,10 @@
             <div class="mining-control">
                 <button id="mineBtn" class="mine-btn">
                     <span class="btn-icon">⛏️</span>
-                    <span class="btn-text">채굴 시작</span>
+                    <span class="btn-text" data-i18n="startMining">채굴 시작</span>
                 </button>
                 <div class="difficulty-display">
-                    난이도: <span id="difficulty">4</span>
+                    <span data-i18n="difficulty">난이도</span>: <span id="difficulty">4</span>
                 </div>
             </div>
 
@@ -75,44 +75,44 @@
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
                 <div class="progress-info">
-                    <span>Nonce: <span id="currentNonce">0</span></span>
-                    <span>시도: <span id="attempts">0</span></span>
+                    <span><span data-i18n="nonce">Nonce</span>: <span id="currentNonce">0</span></span>
+                    <span><span data-i18n="attempts">시도</span>: <span id="attempts">0</span></span>
                 </div>
             </div>
 
             <div class="hash-display">
-                <label>현재 해시:</label>
+                <label><span data-i18n="currentHash">현재 해시</span>:</label>
                 <code id="currentHash">-</code>
             </div>
         </div>
 
         <div class="network-section">
-            <h2>네트워크 정보</h2>
+            <h2 data-i18n="networkInfo">네트워크 정보</h2>
             <div class="network-stats">
                 <div class="network-stat">
-                    <span class="label">접속 채굴자:</span>
+                    <span class="label" data-i18n="connectedMiners">접속 채굴자</span>:
                     <span class="value" id="totalMiners">0</span>
                 </div>
                 <div class="network-stat">
-                    <span class="label">총 채굴 코인:</span>
+                    <span class="label" data-i18n="totalMinedCoins">총 채굴 코인</span>:
                     <span class="value" id="totalMinedCoins">0</span>
                 </div>
                 <div class="network-stat">
-                    <span class="label">내 채굴 블록:</span>
+                    <span class="label" data-i18n="myBlocks">내 채굴 블록</span>:
                     <span class="value" id="myBlocks">0</span>
                 </div>
             </div>
         </div>
 
         <div class="blocks-section">
-            <h2>최근 블록</h2>
+            <h2 data-i18n="recentBlocks">최근 블록</h2>
             <div class="blocks-list" id="blocksList">
                 <!-- 블록들이 여기에 추가됨 -->
             </div>
         </div>
 
         <div class="log-section">
-            <h2>채굴 로그</h2>
+            <h2 data-i18n="miningLog">채굴 로그</h2>
             <div class="log-container" id="logContainer">
                 <!-- 로그가 여기에 추가됨 -->
             </div>
@@ -120,27 +120,28 @@
 
         <!-- 리더보드 -->
         <div class="leaderboard">
-            <h2>🏆 코인 랭킹 TOP 10</h2>
+            <h2 data-i18n="leaderboard">🏆 코인 랭킹 TOP 10</h2>
             <div class="leaderboard-list" id="leaderboardList">
-                <p class="no-data">로딩 중...</p>
+                <p class="no-data" data-i18n="loading">로딩 중...</p>
             </div>
         </div>
 
         <!-- 친구 초대 버튼 -->
         <div class="referral-section">
-            <button onclick="showReferralStats()" class="referral-btn">
+            <button onclick="showReferralStats()" class="referral-btn" data-i18n="referralBtn">
                 👥 친구 초대하고 50코인 받기
             </button>
         </div>
 
         <!-- 면책 조항 -->
         <footer class="disclaimer">
-            <p>본 서비스는 교육/오락 목적의 채굴 시뮬레이션입니다.</p>
-            <p>획득한 코인은 실제 암호화폐가 아니며 현금 가치가 없습니다.</p>
+            <p data-i18n="disclaimer1">본 서비스는 교육/오락 목적의 채굴 시뮬레이션입니다.</p>
+            <p data-i18n="disclaimer2">획득한 코인은 실제 암호화폐가 아니며 현금 가치가 없습니다.</p>
         </footer>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+    <script src="i18n.js"></script>
     <script src="auth.js"></script>
     <script src="daily.js"></script>
     <script src="referral.js"></script>
