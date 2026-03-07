@@ -59,6 +59,10 @@ class CoinMiner {
                     this.myCoins += 10;
                     this.myBlocks++;
                     this.addLog(`블록 #${data.block.index} 채굴 성공! +10 코인`, 'success');
+                    // Firebase에 코인 저장
+                    if (typeof addMinedBlock === 'function') {
+                        addMinedBlock(10);
+                    }
                 } else {
                     this.addLog(`다른 채굴자가 블록 #${data.block.index} 발견`, 'info');
                 }

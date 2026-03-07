@@ -17,6 +17,10 @@ class GameManager {
     addCoins(amount) {
         this.totalCoins += amount;
         this.saveCoins();
+        // Firebase에 코인 저장
+        if (typeof addUserCoins === 'function') {
+            addUserCoins(amount);
+        }
     }
 
     updateCoinDisplay() {
