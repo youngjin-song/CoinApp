@@ -11,26 +11,31 @@ class GameManager {
     }
 
     async waitForFirebase() {
-        // Firebase 로드 대기 (최대 5초)
+        // Firebase 및 로그인 대기 (최대 10초)
         let attempts = 0;
-        while (!window.firebaseDB && attempts < 50) {
+        while (attempts < 100) {
+            if (window.firebaseDB && typeof currentUser !== 'undefined' && currentUser) {
+                await this.loadCoinsFromFirebase();
+                return;
+            }
             await new Promise(r => setTimeout(r, 100));
             attempts++;
         }
+        console.log('Firebase 로그인 대기 중...');
+    }
 
-        // 현재 사용자의 코인 가져오기
-        if (currentUser && window.firebaseDB) {
-            try {
-                const { db, doc, getDoc } = window.firebaseDB;
-                const userRef = doc(db, 'users', currentUser.uid);
-                const userSnap = await getDoc(userRef);
-                if (userSnap.exists()) {
-                    this.totalCoins = userSnap.data().coins || 0;
-                    this.updateCoinDisplay();
-                }
-            } catch (e) {
-                console.log('코인 로드 대기 중...');
+    async loadCoinsFromFirebase() {
+        try {
+            const { db, doc, getDoc } = window.firebaseDB;
+            const userRef = doc(db, 'users', currentUser.uid);
+            const userSnap = await getDoc(userRef);
+            if (userSnap.exists()) {
+                this.totalCoins = userSnap.data().coins || 0;
+                this.updateCoinDisplay();
+                console.log('Firebase에서 코인 로드:', this.totalCoins);
             }
+        } catch (e) {
+            console.error('코인 로드 실패:', e);
         }
     }
 

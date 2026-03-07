@@ -32,8 +32,8 @@ async function initFirebase() {
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 currentUser = user;
-                await loadUserData(user);
-                updateAuthUI(true);
+                updateAuthUI(true);  // 먼저 UI 생성
+                await loadUserData(user);  // 그 다음 데이터 로드 및 표시
                 console.log('로그인됨:', user.displayName);
             } else {
                 currentUser = null;
