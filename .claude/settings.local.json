@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(npm start)",
+      "Bash(start:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat: 웹 기반 코인 채굴 앱 구현\n\n- SHA-256 Proof of Work 채굴 엔진\n- WebSocket 실시간 멀티플레이어 지원\n- 난이도 자동 조정 시스템\n- 블록체인 시각화 대시보드\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat: 미니게임 보상 시스템 및 광고 슬롯 추가\n\n- 4가지 미니게임 \\(클리커, 반응속도, 기억력, 슬롯\\)\n- 게임 완료 시 코인 보상 지급\n- 광고 배너 슬롯 \\(상단/하단/사이드\\)\n- 보상형 광고 모달 \\(2배 보상 기능\\)\n- 메인 페이지에 게임 링크 추가\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat: 게임 플레이 중 하단 인게임 광고 추가\n\n- 모든 미니게임에 하단 광고 슬롯 \\(320x100\\) 추가\n- 게임 중 지속 노출로 높은 광고 효율\n- 펄스 애니메이션 효과 적용\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit:*)",
+      "Bash(gh auth:*)",
+      "Bash(winget install:*)",
+      "Bash(\"/c/Program Files/GitHub CLI/gh.exe\" auth status)",
+      "Bash(\"/c/Program Files/GitHub CLI/gh.exe\" auth login -h github.com -p https -w)",
+      "Bash(git push:*)"
+    ]
+  }
+}

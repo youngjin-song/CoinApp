@@ -3,8 +3,8 @@
 
 const ADS_CONFIG = {
     // Google AdSense 설정
-    enabled: false,  // 승인 후 true로 변경
-    publisherId: 'ca-pub-XXXXXXXXXXXXXXXX',  // 본인의 Publisher ID
+    enabled: true,  // 광고 활성화됨
+    publisherId: 'ca-pub-6321935671066738',  // 본인의 Publisher ID
 
     // 광고 슬롯 ID (AdSense에서 생성)
     slots: {
