@@ -170,20 +170,23 @@ function updateAuthUI(isLoggedIn) {
     const authContainer = document.getElementById('authContainer');
     if (!authContainer) return;
 
+    // i18n 번역 함수 사용 (없으면 기본값)
+    const getText = (key, fallback) => (typeof t === 'function') ? t(key) : fallback;
+
     if (isLoggedIn && currentUser) {
         authContainer.innerHTML = `
             <div class="user-profile">
-                <img src="${currentUser.photoURL || 'https://via.placeholder.com/36'}" alt="프로필" class="user-avatar" onerror="this.src='https://via.placeholder.com/36'">
+                <img src="${currentUser.photoURL || 'https://via.placeholder.com/36'}" alt="Profile" class="user-avatar" onerror="this.src='https://via.placeholder.com/36'">
                 <span class="user-name">${currentUser.displayName}</span>
-                <span class="user-coins" id="userCoins">0</span> 코인
-                <button onclick="logout()" class="logout-btn">로그아웃</button>
+                <span class="user-coins" id="userCoins">0</span> ${getText('coins', '코인')}
+                <button onclick="logout()" class="logout-btn">${getText('logout', '로그아웃')}</button>
             </div>
         `;
     } else {
         authContainer.innerHTML = `
             <button onclick="loginWithGoogle()" class="login-btn">
                 <img src="https://www.google.com/favicon.ico" alt="Google" width="20">
-                Google로 로그인
+                Google ${getText('login', '로그인')}
             </button>
         `;
     }
@@ -222,7 +225,8 @@ function requireLogin(callback) {
     if (currentUser) {
         callback();
     } else {
-        alert('로그인이 필요합니다!');
+        const msg = (typeof t === 'function') ? t('loginRequired') : '로그인이 필요합니다!';
+        alert(msg);
         loginWithGoogle();
     }
 }

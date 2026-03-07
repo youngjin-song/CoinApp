@@ -2,7 +2,7 @@
 
 const translations = {
     ko: {
-        appName: 'CoinMiner', login: '로그인', logout: '로그아웃', coins: '코인',
+        appName: 'CoinMiner', login: '로그인', logout: '로그아웃', coins: '코인', loginRequired: '로그인이 필요합니다!',
         subtitle: '웹 기반 암호화폐 채굴', gamesLink: '🎮 미니게임으로 코인 벌기',
         miningStatus: '채굴 상태', myCoins: '내 코인', hashRate: '해시레이트', totalBlocks: '총 블록',
         waiting: '대기 중', mining: '채굴 중...', startMining: '채굴 시작', stopMining: '채굴 중지',
@@ -34,7 +34,7 @@ const translations = {
     },
 
     en: {
-        appName: 'CoinMiner', login: 'Login', logout: 'Logout', coins: 'Coins',
+        appName: 'CoinMiner', login: 'Login', logout: 'Logout', coins: 'Coins', loginRequired: 'Login required!',
         subtitle: 'Web-based Cryptocurrency Mining', gamesLink: '🎮 Earn Coins with Mini Games',
         miningStatus: 'Mining Status', myCoins: 'My Coins', hashRate: 'Hash Rate', totalBlocks: 'Total Blocks',
         waiting: 'Waiting', mining: 'Mining...', startMining: 'Start Mining', stopMining: 'Stop Mining',
@@ -66,7 +66,7 @@ const translations = {
     },
 
     ja: {
-        appName: 'CoinMiner', login: 'ログイン', logout: 'ログアウト', coins: 'コイン',
+        appName: 'CoinMiner', login: 'ログイン', logout: 'ログアウト', coins: 'コイン', loginRequired: 'ログインが必要です！',
         subtitle: 'ウェブベース仮想通貨マイニング', gamesLink: '🎮 ミニゲームでコインを稼ぐ',
         miningStatus: 'マイニング状態', myCoins: 'マイコイン', hashRate: 'ハッシュレート', totalBlocks: '総ブロック',
         waiting: '待機中', mining: 'マイニング中...', startMining: 'マイニング開始', stopMining: 'マイニング停止',
@@ -98,7 +98,7 @@ const translations = {
     },
 
     zh: {
-        appName: 'CoinMiner', login: '登录', logout: '退出', coins: '金币',
+        appName: 'CoinMiner', login: '登录', logout: '退出', coins: '金币', loginRequired: '需要登录！',
         subtitle: '网页版加密货币挖矿', gamesLink: '🎮 玩游戏赚金币',
         miningStatus: '挖矿状态', myCoins: '我的金币', hashRate: '哈希率', totalBlocks: '总区块',
         waiting: '等待中', mining: '挖矿中...', startMining: '开始挖矿', stopMining: '停止挖矿',
@@ -131,7 +131,7 @@ const translations = {
 
     // 스페인어
     es: {
-        appName: 'CoinMiner', login: 'Iniciar sesión', logout: 'Cerrar sesión', coins: 'Monedas',
+        appName: 'CoinMiner', login: 'Iniciar sesión', logout: 'Cerrar sesión', coins: 'Monedas', loginRequired: '¡Inicio de sesión requerido!',
         subtitle: 'Minería de Criptomonedas Web', gamesLink: '🎮 Gana Monedas con Minijuegos',
         miningStatus: 'Estado de Minería', myCoins: 'Mis Monedas', hashRate: 'Tasa de Hash', totalBlocks: 'Bloques Totales',
         waiting: 'Esperando', mining: 'Minando...', startMining: 'Iniciar Minería', stopMining: 'Detener Minería',
@@ -164,7 +164,7 @@ const translations = {
 
     // 프랑스어
     fr: {
-        appName: 'CoinMiner', login: 'Connexion', logout: 'Déconnexion', coins: 'Pièces',
+        appName: 'CoinMiner', login: 'Connexion', logout: 'Déconnexion', coins: 'Pièces', loginRequired: 'Connexion requise!',
         subtitle: 'Minage de Crypto Web', gamesLink: '🎮 Gagnez des Pièces avec des Mini-Jeux',
         miningStatus: 'État du Minage', myCoins: 'Mes Pièces', hashRate: 'Taux de Hash', totalBlocks: 'Blocs Totaux',
         waiting: 'En attente', mining: 'Minage...', startMining: 'Démarrer le Minage', stopMining: 'Arrêter le Minage',
@@ -197,7 +197,7 @@ const translations = {
 
     // 독일어
     de: {
-        appName: 'CoinMiner', login: 'Anmelden', logout: 'Abmelden', coins: 'Münzen',
+        appName: 'CoinMiner', login: 'Anmelden', logout: 'Abmelden', coins: 'Münzen', loginRequired: 'Anmeldung erforderlich!',
         subtitle: 'Webbasiertes Krypto-Mining', gamesLink: '🎮 Verdiene Münzen mit Minispielen',
         miningStatus: 'Mining-Status', myCoins: 'Meine Münzen', hashRate: 'Hash-Rate', totalBlocks: 'Gesamtblöcke',
         waiting: 'Warten', mining: 'Mining...', startMining: 'Mining Starten', stopMining: 'Mining Stoppen',
@@ -230,7 +230,7 @@ const translations = {
 
     // 포르투갈어
     pt: {
-        appName: 'CoinMiner', login: 'Entrar', logout: 'Sair', coins: 'Moedas',
+        appName: 'CoinMiner', login: 'Entrar', logout: 'Sair', coins: 'Moedas', loginRequired: 'Login necessário!',
         subtitle: 'Mineração de Cripto na Web', gamesLink: '🎮 Ganhe Moedas com Mini-Jogos',
         miningStatus: 'Status da Mineração', myCoins: 'Minhas Moedas', hashRate: 'Taxa de Hash', totalBlocks: 'Blocos Totais',
         waiting: 'Aguardando', mining: 'Minerando...', startMining: 'Iniciar Mineração', stopMining: 'Parar Mineração',
@@ -263,7 +263,7 @@ const translations = {
 
     // 러시아어
     ru: {
-        appName: 'CoinMiner', login: 'Войти', logout: 'Выйти', coins: 'Монеты',
+        appName: 'CoinMiner', login: 'Войти', logout: 'Выйти', coins: 'Монеты', loginRequired: 'Требуется вход!',
         subtitle: 'Веб-майнинг Криптовалюты', gamesLink: '🎮 Заработай Монеты в Мини-Играх',
         miningStatus: 'Статус Майнинга', myCoins: 'Мои Монеты', hashRate: 'Хешрейт', totalBlocks: 'Всего Блоков',
         waiting: 'Ожидание', mining: 'Майнинг...', startMining: 'Начать Майнинг', stopMining: 'Остановить Майнинг',
@@ -296,7 +296,7 @@ const translations = {
 
     // 베트남어
     vi: {
-        appName: 'CoinMiner', login: 'Đăng nhập', logout: 'Đăng xuất', coins: 'Xu',
+        appName: 'CoinMiner', login: 'Đăng nhập', logout: 'Đăng xuất', coins: 'Xu', loginRequired: 'Cần đăng nhập!',
         subtitle: 'Đào Tiền Điện Tử Trên Web', gamesLink: '🎮 Kiếm Xu Với Mini Game',
         miningStatus: 'Trạng Thái Đào', myCoins: 'Xu Của Tôi', hashRate: 'Tốc Độ Hash', totalBlocks: 'Tổng Block',
         waiting: 'Đang chờ', mining: 'Đang đào...', startMining: 'Bắt Đầu Đào', stopMining: 'Dừng Đào',
@@ -329,7 +329,7 @@ const translations = {
 
     // 태국어
     th: {
-        appName: 'CoinMiner', login: 'เข้าสู่ระบบ', logout: 'ออกจากระบบ', coins: 'เหรียญ',
+        appName: 'CoinMiner', login: 'เข้าสู่ระบบ', logout: 'ออกจากระบบ', coins: 'เหรียญ', loginRequired: 'ต้องเข้าสู่ระบบ!',
         subtitle: 'ขุดคริปโตบนเว็บ', gamesLink: '🎮 รับเหรียญจากมินิเกม',
         miningStatus: 'สถานะการขุด', myCoins: 'เหรียญของฉัน', hashRate: 'อัตราแฮช', totalBlocks: 'บล็อกทั้งหมด',
         waiting: 'รอ', mining: 'กำลังขุด...', startMining: 'เริ่มขุด', stopMining: 'หยุดขุด',
@@ -362,7 +362,7 @@ const translations = {
 
     // 인도네시아어
     id: {
-        appName: 'CoinMiner', login: 'Masuk', logout: 'Keluar', coins: 'Koin',
+        appName: 'CoinMiner', login: 'Masuk', logout: 'Keluar', coins: 'Koin', loginRequired: 'Login diperlukan!',
         subtitle: 'Mining Kripto Berbasis Web', gamesLink: '🎮 Dapatkan Koin dari Mini Game',
         miningStatus: 'Status Mining', myCoins: 'Koin Saya', hashRate: 'Hash Rate', totalBlocks: 'Total Blok',
         waiting: 'Menunggu', mining: 'Mining...', startMining: 'Mulai Mining', stopMining: 'Stop Mining',
@@ -395,7 +395,7 @@ const translations = {
 
     // 아랍어
     ar: {
-        appName: 'CoinMiner', login: 'تسجيل الدخول', logout: 'تسجيل الخروج', coins: 'عملات',
+        appName: 'CoinMiner', login: 'تسجيل الدخول', logout: 'تسجيل الخروج', coins: 'عملات', loginRequired: 'تسجيل الدخول مطلوب!',
         subtitle: 'تعدين العملات المشفرة عبر الويب', gamesLink: '🎮 اكسب عملات من الألعاب المصغرة',
         miningStatus: 'حالة التعدين', myCoins: 'عملاتي', hashRate: 'معدل الهاش', totalBlocks: 'إجمالي الكتل',
         waiting: 'انتظار', mining: 'جاري التعدين...', startMining: 'بدء التعدين', stopMining: 'إيقاف التعدين',
@@ -428,7 +428,7 @@ const translations = {
 
     // 힌디어
     hi: {
-        appName: 'CoinMiner', login: 'लॉगिन', logout: 'लॉगआउट', coins: 'सिक्के',
+        appName: 'CoinMiner', login: 'लॉगिन', logout: 'लॉगआउट', coins: 'सिक्के', loginRequired: 'लॉगिन आवश्यक है!',
         subtitle: 'वेब-आधारित क्रिप्टो माइनिंग', gamesLink: '🎮 मिनी गेम्स से सिक्के कमाएं',
         miningStatus: 'माइनिंग स्थिति', myCoins: 'मेरे सिक्के', hashRate: 'हैश रेट', totalBlocks: 'कुल ब्लॉक',
         waiting: 'प्रतीक्षा', mining: 'माइनिंग...', startMining: 'माइनिंग शुरू', stopMining: 'माइनिंग रोकें',
@@ -461,7 +461,7 @@ const translations = {
 
     // 터키어
     tr: {
-        appName: 'CoinMiner', login: 'Giriş', logout: 'Çıkış', coins: 'Jeton',
+        appName: 'CoinMiner', login: 'Giriş', logout: 'Çıkış', coins: 'Jeton', loginRequired: 'Giriş gerekli!',
         subtitle: 'Web Tabanlı Kripto Madenciliği', gamesLink: '🎮 Mini Oyunlarla Jeton Kazan',
         miningStatus: 'Madencilik Durumu', myCoins: 'Jetonlarım', hashRate: 'Hash Oranı', totalBlocks: 'Toplam Blok',
         waiting: 'Bekliyor', mining: 'Madencilik...', startMining: 'Madenciliği Başlat', stopMining: 'Madenciliği Durdur',
@@ -494,7 +494,7 @@ const translations = {
 
     // 이탈리아어
     it: {
-        appName: 'CoinMiner', login: 'Accedi', logout: 'Esci', coins: 'Monete',
+        appName: 'CoinMiner', login: 'Accedi', logout: 'Esci', coins: 'Monete', loginRequired: 'Accesso richiesto!',
         subtitle: 'Mining di Criptovalute Web', gamesLink: '🎮 Guadagna Monete con Mini Giochi',
         miningStatus: 'Stato Mining', myCoins: 'Le Mie Monete', hashRate: 'Hash Rate', totalBlocks: 'Blocchi Totali',
         waiting: 'In attesa', mining: 'Mining...', startMining: 'Inizia Mining', stopMining: 'Ferma Mining',
@@ -527,7 +527,7 @@ const translations = {
 
     // 폴란드어
     pl: {
-        appName: 'CoinMiner', login: 'Zaloguj', logout: 'Wyloguj', coins: 'Monety',
+        appName: 'CoinMiner', login: 'Zaloguj', logout: 'Wyloguj', coins: 'Monety', loginRequired: 'Wymagane logowanie!',
         subtitle: 'Webowe Kopanie Krypto', gamesLink: '🎮 Zdobywaj Monety w Mini Grach',
         miningStatus: 'Status Kopania', myCoins: 'Moje Monety', hashRate: 'Hash Rate', totalBlocks: 'Łączne Bloki',
         waiting: 'Oczekiwanie', mining: 'Kopanie...', startMining: 'Rozpocznij Kopanie', stopMining: 'Zatrzymaj Kopanie',
