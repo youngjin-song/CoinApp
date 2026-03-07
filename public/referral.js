@@ -1,4 +1,4 @@
-// 친구 초대 시스템
+// 친구 초대 시스템 (CDN compat 버전)
 
 const REFERRAL_REWARD = 50;  // 초대한 사람 보상
 const INVITED_REWARD = 30;   // 초대받은 사람 보상
@@ -69,27 +69,23 @@ async function checkReferralCode() {
 
 // 초대 보상 처리 (로그인 후 호출)
 async function processReferralReward() {
-    if (!currentUser) return;
+    if (typeof db === 'undefined' || !db || !currentUser) return;
 
     const refCode = localStorage.getItem('pendingReferral');
     if (!refCode) return;
 
     try {
-        const { db, doc, getDoc, updateDoc, increment, collection, query, where, getDocs } = window.firebaseDB;
-        const { collection: coll, query: q, where: w, getDocs: gd } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
-
         // 이미 초대 보상을 받았는지 확인
-        const userRef = doc(db, 'users', currentUser.uid);
-        const userSnap = await getDoc(userRef);
+        const userRef = db.collection('users').doc(currentUser.uid);
+        const userSnap = await userRef.get();
 
-        if (userSnap.exists() && userSnap.data().referredBy) {
+        if (userSnap.exists && userSnap.data().referredBy) {
             localStorage.removeItem('pendingReferral');
             return;
         }
 
         // 초대한 사람 찾기
-        const usersRef = coll(db, 'users');
-        const usersSnap = await gd(usersRef);
+        const usersSnap = await db.collection('users').get();
 
         let referrerUid = null;
         usersSnap.forEach((doc) => {
@@ -104,16 +100,16 @@ async function processReferralReward() {
         }
 
         // 초대받은 사람에게 보상
-        await updateDoc(userRef, {
-            coins: increment(INVITED_REWARD),
+        await userRef.update({
+            coins: firebase.firestore.FieldValue.increment(INVITED_REWARD),
             referredBy: referrerUid
         });
 
         // 초대한 사람에게 보상
-        const referrerRef = doc(db, 'users', referrerUid);
-        await updateDoc(referrerRef, {
-            coins: increment(REFERRAL_REWARD),
-            referralCount: increment(1)
+        const referrerRef = db.collection('users').doc(referrerUid);
+        await referrerRef.update({
+            coins: firebase.firestore.FieldValue.increment(REFERRAL_REWARD),
+            referralCount: firebase.firestore.FieldValue.increment(1)
         });
 
         localStorage.removeItem('pendingReferral');

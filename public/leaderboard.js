@@ -1,14 +1,18 @@
-// 리더보드 시스템
+// 리더보드 시스템 (CDN compat 버전)
 
 async function loadLeaderboard() {
-    try {
-        const { db, doc, getDoc } = window.firebaseDB;
-        const { collection, query, orderBy, limit, getDocs } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+    // db가 초기화될 때까지 대기
+    if (typeof db === 'undefined' || !db) {
+        console.log('리더보드: DB 대기 중...');
+        return;
+    }
 
+    try {
         // 상위 10명 가져오기
-        const usersRef = collection(db, 'users');
-        const q = query(usersRef, orderBy('coins', 'desc'), limit(10));
-        const snapshot = await getDocs(q);
+        const snapshot = await db.collection('users')
+            .orderBy('coins', 'desc')
+            .limit(10)
+            .get();
 
         const leaderboardData = [];
         snapshot.forEach((doc) => {
@@ -59,5 +63,5 @@ function startLeaderboardUpdates() {
 
 // Firebase 초기화 후 리더보드 로드
 document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(startLeaderboardUpdates, 2000);
+    setTimeout(startLeaderboardUpdates, 3000);
 });

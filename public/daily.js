@@ -1,16 +1,19 @@
-// 출석 체크 보상 시스템
+// 출석 체크 보상 시스템 (CDN compat 버전)
 
 const DAILY_REWARDS = [10, 15, 20, 25, 30, 40, 50]; // 7일 보상
 
 async function checkDailyReward() {
-    if (!currentUser) return;
+    // db와 currentUser가 초기화될 때까지 대기
+    if (typeof db === 'undefined' || !db || !currentUser) {
+        console.log('출석체크: DB 또는 사용자 대기 중...');
+        return;
+    }
 
     try {
-        const { db, doc, getDoc, setDoc, updateDoc, increment } = window.firebaseDB;
-        const userRef = doc(db, 'users', currentUser.uid);
-        const userSnap = await getDoc(userRef);
+        const userRef = db.collection('users').doc(currentUser.uid);
+        const userSnap = await userRef.get();
 
-        if (!userSnap.exists()) return;
+        if (!userSnap.exists) return;
 
         const userData = userSnap.data();
         const today = new Date().toDateString();
@@ -75,29 +78,22 @@ function showDailyRewardModal(streak, reward) {
 }
 
 async function claimDailyReward(streak, reward) {
-    if (!currentUser) return;
+    if (typeof db === 'undefined' || !db || !currentUser) return;
 
     try {
-        const { db, doc, updateDoc, increment } = window.firebaseDB;
-        const userRef = doc(db, 'users', currentUser.uid);
+        const userRef = db.collection('users').doc(currentUser.uid);
 
-        await updateDoc(userRef, {
-            coins: increment(reward),
+        await userRef.update({
+            coins: firebase.firestore.FieldValue.increment(reward),
             dailyStreak: streak,
             lastDailyCheck: new Date().toDateString(),
-            totalDailyRewards: increment(reward)
+            totalDailyRewards: firebase.firestore.FieldValue.increment(reward)
         });
 
         // 모달 닫기
         document.getElementById('dailyModal').classList.remove('active');
 
-        // UI 업데이트
-        if (typeof updateUserStats === 'function') {
-            const currentCoins = parseInt(document.getElementById('userCoins')?.textContent || '0');
-            updateUserStats({ coins: currentCoins + reward });
-        }
-
-        alert(`🎉 ${reward} 코인을 받았습니다!`);
+        console.log('출석 보상 수령 완료:', reward);
 
     } catch (error) {
         console.error('보상 수령 실패:', error);
