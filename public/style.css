@@ -596,3 +596,17 @@ header h1 {
         padding: 8px 5px;
     }
 }
+
+/* 면책 조항 */
+.disclaimer {
+    margin-top: 40px;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.disclaimer p {
+    margin: 5px 0;
+}
