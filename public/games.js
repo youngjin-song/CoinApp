@@ -5,52 +5,23 @@ class GameManager {
         this.currentGame = null;
         this.pendingReward = 0;
         this.adMultiplier = 1;
-
-        // Firebase에서 코인 로드 대기
-        this.waitForFirebase();
-    }
-
-    async waitForFirebase() {
-        // Firebase 및 로그인 대기 (최대 10초)
-        let attempts = 0;
-        while (attempts < 100) {
-            if (window.firebaseDB && typeof currentUser !== 'undefined' && currentUser) {
-                await this.loadCoinsFromFirebase();
-                return;
-            }
-            await new Promise(r => setTimeout(r, 100));
-            attempts++;
-        }
-        console.log('Firebase 로그인 대기 중...');
-    }
-
-    async loadCoinsFromFirebase() {
-        try {
-            const { db, doc, getDoc } = window.firebaseDB;
-            const userRef = doc(db, 'users', currentUser.uid);
-            const userSnap = await getDoc(userRef);
-            if (userSnap.exists()) {
-                this.totalCoins = userSnap.data().coins || 0;
-                this.updateCoinDisplay();
-                console.log('Firebase에서 코인 로드:', this.totalCoins);
-            }
-        } catch (e) {
-            console.error('코인 로드 실패:', e);
-        }
     }
 
     addCoins(amount) {
-        this.totalCoins += amount;
-        this.updateCoinDisplay();
-        // Firebase에 코인 저장
+        // Firebase에 코인 저장 (auth.js의 함수 사용)
         if (typeof addUserCoins === 'function') {
             addUserCoins(amount);
         }
+        // 로컬 표시도 업데이트 (실시간 리스너가 곧 덮어씀)
+        this.totalCoins = (window.userCoins || 0) + amount;
+        this.updateCoinDisplay();
     }
 
     updateCoinDisplay() {
+        // window.userCoins는 auth.js의 실시간 리스너가 관리
+        const coins = window.userCoins || this.totalCoins || 0;
         const el = document.getElementById('totalCoins');
-        if (el) el.textContent = this.totalCoins.toLocaleString();
+        if (el) el.textContent = coins.toLocaleString();
     }
 
     showRewardAd(reward) {
