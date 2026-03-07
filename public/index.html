@@ -141,11 +141,13 @@
     <script src="leaderboard.js"></script>
     <script src="miner.js"></script>
     <script>
-        // PWA Service Worker 등록
+        // 기존 Service Worker 제거 (캐시 문제 해결)
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-                .then(() => console.log('Service Worker 등록 완료'))
-                .catch((err) => console.log('Service Worker 등록 실패:', err));
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                }
+            });
         }
     </script>
 </body>
