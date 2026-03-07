@@ -80,12 +80,12 @@ async function loadUserData(user) {
         const userRef = doc(db, 'users', user.uid);
         const userSnap = await getDoc(userRef);
 
+        let userData;
         if (userSnap.exists()) {
-            const data = userSnap.data();
-            updateUserStats(data);
+            userData = userSnap.data();
         } else {
             // 새 사용자 생성
-            const newUser = {
+            userData = {
                 uid: user.uid,
                 email: user.email,
                 displayName: user.displayName,
@@ -96,9 +96,19 @@ async function loadUserData(user) {
                 createdAt: new Date().toISOString(),
                 lastLogin: new Date().toISOString()
             };
-            await setDoc(userRef, newUser);
-            updateUserStats(newUser);
+            await setDoc(userRef, userData);
         }
+
+        // 전역 변수에 저장
+        window.userCoins = userData.coins || 0;
+
+        // DOM 업데이트 후 코인 표시 (여러 번 시도)
+        setTimeout(() => updateUserStats(userData), 100);
+        setTimeout(() => updateUserStats(userData), 500);
+        setTimeout(() => updateUserStats(userData), 1000);
+
+        console.log('Firebase 코인 로드:', userData.coins);
+
     } catch (error) {
         console.error('사용자 데이터 로드 실패:', error);
     }
@@ -175,18 +185,28 @@ function updateAuthUI(isLoggedIn) {
 
 function updateUserStats(data) {
     const coins = data.coins || 0;
+    console.log('updateUserStats 호출, 코인:', coins);
 
     // 상단 프로필의 코인
     const userCoinsEl = document.getElementById('userCoins');
-    if (userCoinsEl) userCoinsEl.textContent = coins.toLocaleString();
+    if (userCoinsEl) {
+        userCoinsEl.textContent = coins.toLocaleString();
+        console.log('userCoins 업데이트:', coins);
+    }
 
     // 메인 페이지의 내 코인
     const myCoinsEl = document.getElementById('myCoins');
-    if (myCoinsEl) myCoinsEl.textContent = coins.toLocaleString();
+    if (myCoinsEl) {
+        myCoinsEl.textContent = coins.toLocaleString();
+        console.log('myCoins 업데이트:', coins);
+    }
 
     // 게임 페이지의 총 코인
     const totalCoinsEl = document.getElementById('totalCoins');
-    if (totalCoinsEl) totalCoinsEl.textContent = coins.toLocaleString();
+    if (totalCoinsEl) {
+        totalCoinsEl.textContent = coins.toLocaleString();
+        console.log('totalCoins 업데이트:', coins);
+    }
 
     const blocksEl = document.getElementById('userBlocks');
     if (blocksEl) blocksEl.textContent = data.minedBlocks?.toLocaleString() || '0';
