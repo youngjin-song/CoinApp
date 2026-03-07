@@ -30,7 +30,12 @@ const translations = {
         rewardAdTitle: '🎬 광고 시청하고 보상 2배!', rewardAdDesc: '30초 광고를 시청하면 보상이 2배가 됩니다',
         watchAd: '광고 시청 (2배 보상)', skip: '건너뛰기', doubleReward: '🎬 2배 보상!',
         gameComplete: '🎉 게임 완료!', coinsEarned: '코인 획득!', confirm: '확인',
-        adArea: '📢 광고 영역', inGameAd: '게임 중 노출', rewardAdAfter: '게임 완료 후 보상형 광고'
+        adArea: '📢 광고 영역', inGameAd: '게임 중 노출', rewardAdAfter: '게임 완료 후 보상형 광고',
+        logSystemInit: '시스템 초기화 완료', logConnected: '서버에 연결됨', logDisconnected: '서버 연결 끊김. 재연결 시도...',
+        logError: '연결 오류 발생', logMinerId: '채굴자 ID', logBlockMined: '블록', logMiningSuccess: '채굴 성공!',
+        logOtherMiner: '다른 채굴자가 블록', logFound: '발견', logNewJob: '새 블록 작업 시작',
+        logDifficultyChange: '난이도 변경', logMiningStart: '채굴 시작!', logMiningStop: '채굴 중지',
+        logHashFound: '해시 발견', logMinedByMe: '내가 채굴!'
     },
 
     en: {
@@ -62,7 +67,12 @@ const translations = {
         rewardAdTitle: '🎬 Watch Ad for 2x Reward!', rewardAdDesc: 'Watch a 30-second ad to double your reward',
         watchAd: 'Watch Ad (2x Reward)', skip: 'Skip', doubleReward: '🎬 2x Reward!',
         gameComplete: '🎉 Game Complete!', coinsEarned: 'Coins Earned!', confirm: 'OK',
-        adArea: '📢 Ad Area', inGameAd: 'In-game display', rewardAdAfter: 'Reward ad after game'
+        adArea: '📢 Ad Area', inGameAd: 'In-game display', rewardAdAfter: 'Reward ad after game',
+        logSystemInit: 'System initialized', logConnected: 'Connected to server', logDisconnected: 'Disconnected. Reconnecting...',
+        logError: 'Connection error', logMinerId: 'Miner ID', logBlockMined: 'Block', logMiningSuccess: 'Mining success!',
+        logOtherMiner: 'Another miner found block', logFound: 'found', logNewJob: 'New block job started',
+        logDifficultyChange: 'Difficulty changed', logMiningStart: 'Mining started!', logMiningStop: 'Mining stopped',
+        logHashFound: 'Hash found', logMinedByMe: 'Mined by me!'
     },
 
     ja: {
@@ -94,7 +104,12 @@ const translations = {
         rewardAdTitle: '🎬 広告を見て報酬2倍！', rewardAdDesc: '30秒の広告を見ると報酬が2倍に',
         watchAd: '広告視聴 (2倍報酬)', skip: 'スキップ', doubleReward: '🎬 2倍報酬！',
         gameComplete: '🎉 ゲーム完了！', coinsEarned: 'コイン獲得！', confirm: '確認',
-        adArea: '📢 広告エリア', inGameAd: 'ゲーム中表示', rewardAdAfter: 'ゲーム完了後の報酬広告'
+        adArea: '📢 広告エリア', inGameAd: 'ゲーム中表示', rewardAdAfter: 'ゲーム完了後の報酬広告',
+        logSystemInit: 'システム初期化完了', logConnected: 'サーバーに接続', logDisconnected: '接続が切断。再接続中...',
+        logError: '接続エラー', logMinerId: 'マイナーID', logBlockMined: 'ブロック', logMiningSuccess: 'マイニング成功！',
+        logOtherMiner: '他のマイナーがブロック', logFound: '発見', logNewJob: '新しいブロック作業開始',
+        logDifficultyChange: '難易度変更', logMiningStart: 'マイニング開始！', logMiningStop: 'マイニング停止',
+        logHashFound: 'ハッシュ発見', logMinedByMe: '私がマイニング！'
     },
 
     zh: {
@@ -126,7 +141,12 @@ const translations = {
         rewardAdTitle: '🎬 看广告奖励翻倍！', rewardAdDesc: '观看30秒广告，奖励翻倍',
         watchAd: '看广告 (双倍奖励)', skip: '跳过', doubleReward: '🎬 双倍奖励！',
         gameComplete: '🎉 游戏完成！', coinsEarned: '金币获得！', confirm: '确定',
-        adArea: '📢 广告区域', inGameAd: '游戏中展示', rewardAdAfter: '游戏完成后的奖励广告'
+        adArea: '📢 广告区域', inGameAd: '游戏中展示', rewardAdAfter: '游戏完成后的奖励广告',
+        logSystemInit: '系统初始化完成', logConnected: '已连接服务器', logDisconnected: '连接断开。重新连接中...',
+        logError: '连接错误', logMinerId: '矿工ID', logBlockMined: '区块', logMiningSuccess: '挖矿成功！',
+        logOtherMiner: '其他矿工发现区块', logFound: '发现', logNewJob: '新区块任务开始',
+        logDifficultyChange: '难度变更', logMiningStart: '开始挖矿！', logMiningStop: '停止挖矿',
+        logHashFound: '发现哈希', logMinedByMe: '我挖到的！'
     },
 
     // 스페인어
@@ -159,7 +179,12 @@ const translations = {
         rewardAdTitle: '🎬 ¡Ve el Anuncio para 2x Recompensa!', rewardAdDesc: 'Ve un anuncio de 30 segundos para duplicar tu recompensa',
         watchAd: 'Ver Anuncio (2x Recompensa)', skip: 'Saltar', doubleReward: '🎬 ¡2x Recompensa!',
         gameComplete: '🎉 ¡Juego Completado!', coinsEarned: '¡Monedas Ganadas!', confirm: 'OK',
-        adArea: '📢 Área de Anuncios', inGameAd: 'Mostrar en juego', rewardAdAfter: 'Anuncio de recompensa después del juego'
+        adArea: '📢 Área de Anuncios', inGameAd: 'Mostrar en juego', rewardAdAfter: 'Anuncio de recompensa después del juego',
+        logSystemInit: 'Sistema inicializado', logConnected: 'Conectado al servidor', logDisconnected: 'Desconectado. Reconectando...',
+        logError: 'Error de conexión', logMinerId: 'ID del Minero', logBlockMined: 'Bloque', logMiningSuccess: '¡Minería exitosa!',
+        logOtherMiner: 'Otro minero encontró bloque', logFound: 'encontrado', logNewJob: 'Nuevo trabajo de bloque iniciado',
+        logDifficultyChange: 'Dificultad cambiada', logMiningStart: '¡Minería iniciada!', logMiningStop: 'Minería detenida',
+        logHashFound: 'Hash encontrado', logMinedByMe: '¡Minado por mí!'
     },
 
     // 프랑스어
@@ -192,7 +217,12 @@ const translations = {
         rewardAdTitle: '🎬 Regardez la Pub pour 2x Récompense!', rewardAdDesc: 'Regardez une pub de 30 secondes pour doubler votre récompense',
         watchAd: 'Voir Pub (2x Récompense)', skip: 'Passer', doubleReward: '🎬 2x Récompense!',
         gameComplete: '🎉 Jeu Terminé!', coinsEarned: 'Pièces Gagnées!', confirm: 'OK',
-        adArea: '📢 Zone Pub', inGameAd: 'Affichage en jeu', rewardAdAfter: 'Pub récompense après le jeu'
+        adArea: '📢 Zone Pub', inGameAd: 'Affichage en jeu', rewardAdAfter: 'Pub récompense après le jeu',
+        logSystemInit: 'Système initialisé', logConnected: 'Connecté au serveur', logDisconnected: 'Déconnecté. Reconnexion...',
+        logError: 'Erreur de connexion', logMinerId: 'ID du Mineur', logBlockMined: 'Bloc', logMiningSuccess: 'Minage réussi!',
+        logOtherMiner: 'Un autre mineur a trouvé le bloc', logFound: 'trouvé', logNewJob: 'Nouveau travail de bloc démarré',
+        logDifficultyChange: 'Difficulté modifiée', logMiningStart: 'Minage démarré!', logMiningStop: 'Minage arrêté',
+        logHashFound: 'Hash trouvé', logMinedByMe: 'Miné par moi!'
     },
 
     // 독일어
@@ -225,7 +255,12 @@ const translations = {
         rewardAdTitle: '🎬 Werbung für 2x Belohnung!', rewardAdDesc: 'Schau dir eine 30-Sekunden-Werbung an um deine Belohnung zu verdoppeln',
         watchAd: 'Werbung Ansehen (2x Belohnung)', skip: 'Überspringen', doubleReward: '🎬 2x Belohnung!',
         gameComplete: '🎉 Spiel Abgeschlossen!', coinsEarned: 'Münzen Verdient!', confirm: 'OK',
-        adArea: '📢 Werbefläche', inGameAd: 'Im-Spiel Anzeige', rewardAdAfter: 'Belohnungswerbung nach dem Spiel'
+        adArea: '📢 Werbefläche', inGameAd: 'Im-Spiel Anzeige', rewardAdAfter: 'Belohnungswerbung nach dem Spiel',
+        logSystemInit: 'System initialisiert', logConnected: 'Mit Server verbunden', logDisconnected: 'Verbindung getrennt. Wiederverbindung...',
+        logError: 'Verbindungsfehler', logMinerId: 'Miner-ID', logBlockMined: 'Block', logMiningSuccess: 'Mining erfolgreich!',
+        logOtherMiner: 'Anderer Miner fand Block', logFound: 'gefunden', logNewJob: 'Neuer Block-Job gestartet',
+        logDifficultyChange: 'Schwierigkeit geändert', logMiningStart: 'Mining gestartet!', logMiningStop: 'Mining gestoppt',
+        logHashFound: 'Hash gefunden', logMinedByMe: 'Von mir gemined!'
     },
 
     // 포르투갈어
@@ -258,7 +293,12 @@ const translations = {
         rewardAdTitle: '🎬 Assista Anúncio para 2x Recompensa!', rewardAdDesc: 'Assista um anúncio de 30 segundos para dobrar sua recompensa',
         watchAd: 'Ver Anúncio (2x Recompensa)', skip: 'Pular', doubleReward: '🎬 2x Recompensa!',
         gameComplete: '🎉 Jogo Completo!', coinsEarned: 'Moedas Ganhas!', confirm: 'OK',
-        adArea: '📢 Área de Anúncios', inGameAd: 'Exibição no jogo', rewardAdAfter: 'Anúncio de recompensa após o jogo'
+        adArea: '📢 Área de Anúncios', inGameAd: 'Exibição no jogo', rewardAdAfter: 'Anúncio de recompensa após o jogo',
+        logSystemInit: 'Sistema inicializado', logConnected: 'Conectado ao servidor', logDisconnected: 'Desconectado. Reconectando...',
+        logError: 'Erro de conexão', logMinerId: 'ID do Minerador', logBlockMined: 'Bloco', logMiningSuccess: 'Mineração bem-sucedida!',
+        logOtherMiner: 'Outro minerador encontrou bloco', logFound: 'encontrado', logNewJob: 'Novo trabalho de bloco iniciado',
+        logDifficultyChange: 'Dificuldade alterada', logMiningStart: 'Mineração iniciada!', logMiningStop: 'Mineração parada',
+        logHashFound: 'Hash encontrado', logMinedByMe: 'Minerado por mim!'
     },
 
     // 러시아어
@@ -291,7 +331,12 @@ const translations = {
         rewardAdTitle: '🎬 Смотри Рекламу для 2x Награды!', rewardAdDesc: 'Посмотри 30-секундную рекламу чтобы удвоить награду',
         watchAd: 'Смотреть Рекламу (2x Награда)', skip: 'Пропустить', doubleReward: '🎬 2x Награда!',
         gameComplete: '🎉 Игра Завершена!', coinsEarned: 'Монет Заработано!', confirm: 'OK',
-        adArea: '📢 Рекламная Зона', inGameAd: 'Показ в игре', rewardAdAfter: 'Реклама с наградой после игры'
+        adArea: '📢 Рекламная Зона', inGameAd: 'Показ в игре', rewardAdAfter: 'Реклама с наградой после игры',
+        logSystemInit: 'Система инициализирована', logConnected: 'Подключено к серверу', logDisconnected: 'Отключено. Переподключение...',
+        logError: 'Ошибка соединения', logMinerId: 'ID Майнера', logBlockMined: 'Блок', logMiningSuccess: 'Майнинг успешен!',
+        logOtherMiner: 'Другой майнер нашел блок', logFound: 'найден', logNewJob: 'Новая работа по блоку начата',
+        logDifficultyChange: 'Сложность изменена', logMiningStart: 'Майнинг начат!', logMiningStop: 'Майнинг остановлен',
+        logHashFound: 'Хеш найден', logMinedByMe: 'Добыто мной!'
     },
 
     // 베트남어
@@ -324,7 +369,12 @@ const translations = {
         rewardAdTitle: '🎬 Xem QC Nhận 2x Thưởng!', rewardAdDesc: 'Xem quảng cáo 30 giây để nhân đôi thưởng',
         watchAd: 'Xem QC (2x Thưởng)', skip: 'Bỏ qua', doubleReward: '🎬 2x Thưởng!',
         gameComplete: '🎉 Hoàn Thành!', coinsEarned: 'Xu Kiếm Được!', confirm: 'OK',
-        adArea: '📢 Khu Quảng Cáo', inGameAd: 'Hiển thị trong game', rewardAdAfter: 'QC thưởng sau game'
+        adArea: '📢 Khu Quảng Cáo', inGameAd: 'Hiển thị trong game', rewardAdAfter: 'QC thưởng sau game',
+        logSystemInit: 'Hệ thống đã khởi tạo', logConnected: 'Đã kết nối server', logDisconnected: 'Mất kết nối. Đang kết nối lại...',
+        logError: 'Lỗi kết nối', logMinerId: 'ID Thợ đào', logBlockMined: 'Block', logMiningSuccess: 'Đào thành công!',
+        logOtherMiner: 'Thợ đào khác tìm thấy block', logFound: 'tìm thấy', logNewJob: 'Bắt đầu công việc block mới',
+        logDifficultyChange: 'Độ khó thay đổi', logMiningStart: 'Bắt đầu đào!', logMiningStop: 'Dừng đào',
+        logHashFound: 'Tìm thấy hash', logMinedByMe: 'Tôi đào được!'
     },
 
     // 태국어
@@ -357,7 +407,12 @@ const translations = {
         rewardAdTitle: '🎬 ดูโฆษณารับ 2x รางวัล!', rewardAdDesc: 'ดูโฆษณา 30 วินาทีเพื่อรับรางวัลสองเท่า',
         watchAd: 'ดูโฆษณา (2x รางวัล)', skip: 'ข้าม', doubleReward: '🎬 2x รางวัล!',
         gameComplete: '🎉 เกมเสร็จสิ้น!', coinsEarned: 'ได้รับเหรียญ!', confirm: 'ตกลง',
-        adArea: '📢 พื้นที่โฆษณา', inGameAd: 'แสดงในเกม', rewardAdAfter: 'โฆษณารางวัลหลังเกม'
+        adArea: '📢 พื้นที่โฆษณา', inGameAd: 'แสดงในเกม', rewardAdAfter: 'โฆษณารางวัลหลังเกม',
+        logSystemInit: 'ระบบเริ่มต้นแล้ว', logConnected: 'เชื่อมต่อเซิร์ฟเวอร์แล้ว', logDisconnected: 'ขาดการเชื่อมต่อ กำลังเชื่อมต่อใหม่...',
+        logError: 'ข้อผิดพลาดการเชื่อมต่อ', logMinerId: 'ID นักขุด', logBlockMined: 'บล็อก', logMiningSuccess: 'ขุดสำเร็จ!',
+        logOtherMiner: 'นักขุดคนอื่นพบบล็อก', logFound: 'พบ', logNewJob: 'เริ่มงานบล็อกใหม่',
+        logDifficultyChange: 'ความยากเปลี่ยน', logMiningStart: 'เริ่มขุด!', logMiningStop: 'หยุดขุด',
+        logHashFound: 'พบแฮช', logMinedByMe: 'ฉันขุดได้!'
     },
 
     // 인도네시아어
@@ -390,7 +445,12 @@ const translations = {
         rewardAdTitle: '🎬 Tonton Iklan untuk 2x Hadiah!', rewardAdDesc: 'Tonton iklan 30 detik untuk gandakan hadiah',
         watchAd: 'Tonton Iklan (2x Hadiah)', skip: 'Lewati', doubleReward: '🎬 2x Hadiah!',
         gameComplete: '🎉 Game Selesai!', coinsEarned: 'Koin Didapat!', confirm: 'OK',
-        adArea: '📢 Area Iklan', inGameAd: 'Tampilan dalam game', rewardAdAfter: 'Iklan hadiah setelah game'
+        adArea: '📢 Area Iklan', inGameAd: 'Tampilan dalam game', rewardAdAfter: 'Iklan hadiah setelah game',
+        logSystemInit: 'Sistem diinisialisasi', logConnected: 'Terhubung ke server', logDisconnected: 'Terputus. Menghubungkan kembali...',
+        logError: 'Kesalahan koneksi', logMinerId: 'ID Penambang', logBlockMined: 'Blok', logMiningSuccess: 'Mining berhasil!',
+        logOtherMiner: 'Penambang lain menemukan blok', logFound: 'ditemukan', logNewJob: 'Pekerjaan blok baru dimulai',
+        logDifficultyChange: 'Kesulitan berubah', logMiningStart: 'Mining dimulai!', logMiningStop: 'Mining dihentikan',
+        logHashFound: 'Hash ditemukan', logMinedByMe: 'Ditambang oleh saya!'
     },
 
     // 아랍어
@@ -423,7 +483,12 @@ const translations = {
         rewardAdTitle: '🎬 شاهد إعلان لمكافأة 2x!', rewardAdDesc: 'شاهد إعلان 30 ثانية لمضاعفة مكافأتك',
         watchAd: 'شاهد إعلان (2x مكافأة)', skip: 'تخطي', doubleReward: '🎬 2x مكافأة!',
         gameComplete: '🎉 اللعبة مكتملة!', coinsEarned: 'عملات مكتسبة!', confirm: 'موافق',
-        adArea: '📢 منطقة الإعلان', inGameAd: 'عرض داخل اللعبة', rewardAdAfter: 'إعلان مكافأة بعد اللعبة'
+        adArea: '📢 منطقة الإعلان', inGameAd: 'عرض داخل اللعبة', rewardAdAfter: 'إعلان مكافأة بعد اللعبة',
+        logSystemInit: 'تم تهيئة النظام', logConnected: 'متصل بالخادم', logDisconnected: 'انقطع الاتصال. إعادة الاتصال...',
+        logError: 'خطأ في الاتصال', logMinerId: 'معرف المعدن', logBlockMined: 'كتلة', logMiningSuccess: 'نجح التعدين!',
+        logOtherMiner: 'معدن آخر وجد الكتلة', logFound: 'وجد', logNewJob: 'بدء عمل كتلة جديدة',
+        logDifficultyChange: 'تغيرت الصعوبة', logMiningStart: 'بدء التعدين!', logMiningStop: 'توقف التعدين',
+        logHashFound: 'تم العثور على الهاش', logMinedByMe: 'تم التعدين بواسطتي!'
     },
 
     // 힌디어
@@ -456,7 +521,12 @@ const translations = {
         rewardAdTitle: '🎬 2x इनाम के लिए विज्ञापन देखें!', rewardAdDesc: 'अपना इनाम दोगुना करने के लिए 30 सेकंड का विज्ञापन देखें',
         watchAd: 'विज्ञापन देखें (2x इनाम)', skip: 'छोड़ें', doubleReward: '🎬 2x इनाम!',
         gameComplete: '🎉 गेम पूरा!', coinsEarned: 'सिक्के कमाए!', confirm: 'ठीक है',
-        adArea: '📢 विज्ञापन क्षेत्र', inGameAd: 'गेम में प्रदर्शन', rewardAdAfter: 'गेम के बाद इनाम विज्ञापन'
+        adArea: '📢 विज्ञापन क्षेत्र', inGameAd: 'गेम में प्रदर्शन', rewardAdAfter: 'गेम के बाद इनाम विज्ञापन',
+        logSystemInit: 'सिस्टम प्रारंभ', logConnected: 'सर्वर से जुड़ा', logDisconnected: 'डिस्कनेक्ट। पुनः कनेक्ट हो रहा...',
+        logError: 'कनेक्शन त्रुटि', logMinerId: 'माइनर आईडी', logBlockMined: 'ब्लॉक', logMiningSuccess: 'माइनिंग सफल!',
+        logOtherMiner: 'अन्य माइनर ने ब्लॉक पाया', logFound: 'मिला', logNewJob: 'नया ब्लॉक कार्य शुरू',
+        logDifficultyChange: 'कठिनाई बदली', logMiningStart: 'माइनिंग शुरू!', logMiningStop: 'माइनिंग रुकी',
+        logHashFound: 'हैश मिला', logMinedByMe: 'मैंने माइन किया!'
     },
 
     // 터키어
@@ -489,7 +559,12 @@ const translations = {
         rewardAdTitle: '🎬 2x Ödül için Reklam İzle!', rewardAdDesc: 'Ödülünü ikiye katlamak için 30 saniyelik reklam izle',
         watchAd: 'Reklam İzle (2x Ödül)', skip: 'Atla', doubleReward: '🎬 2x Ödül!',
         gameComplete: '🎉 Oyun Tamamlandı!', coinsEarned: 'Jeton Kazanıldı!', confirm: 'Tamam',
-        adArea: '📢 Reklam Alanı', inGameAd: 'Oyun içi görüntüleme', rewardAdAfter: 'Oyun sonrası ödül reklamı'
+        adArea: '📢 Reklam Alanı', inGameAd: 'Oyun içi görüntüleme', rewardAdAfter: 'Oyun sonrası ödül reklamı',
+        logSystemInit: 'Sistem başlatıldı', logConnected: 'Sunucuya bağlandı', logDisconnected: 'Bağlantı kesildi. Yeniden bağlanıyor...',
+        logError: 'Bağlantı hatası', logMinerId: 'Madenci ID', logBlockMined: 'Blok', logMiningSuccess: 'Madencilik başarılı!',
+        logOtherMiner: 'Başka madenci blok buldu', logFound: 'bulundu', logNewJob: 'Yeni blok işi başladı',
+        logDifficultyChange: 'Zorluk değişti', logMiningStart: 'Madencilik başladı!', logMiningStop: 'Madencilik durduruldu',
+        logHashFound: 'Hash bulundu', logMinedByMe: 'Benim tarafımdan kazıldı!'
     },
 
     // 이탈리아어
@@ -522,7 +597,12 @@ const translations = {
         rewardAdTitle: '🎬 Guarda Pubblicità per 2x Premio!', rewardAdDesc: 'Guarda una pubblicità di 30 secondi per raddoppiare il premio',
         watchAd: 'Guarda Pubblicità (2x Premio)', skip: 'Salta', doubleReward: '🎬 2x Premio!',
         gameComplete: '🎉 Gioco Completato!', coinsEarned: 'Monete Guadagnate!', confirm: 'OK',
-        adArea: '📢 Area Pubblicità', inGameAd: 'Visualizzazione in-game', rewardAdAfter: 'Pubblicità premio dopo il gioco'
+        adArea: '📢 Area Pubblicità', inGameAd: 'Visualizzazione in-game', rewardAdAfter: 'Pubblicità premio dopo il gioco',
+        logSystemInit: 'Sistema inizializzato', logConnected: 'Connesso al server', logDisconnected: 'Disconnesso. Riconnessione...',
+        logError: 'Errore di connessione', logMinerId: 'ID Miner', logBlockMined: 'Blocco', logMiningSuccess: 'Mining riuscito!',
+        logOtherMiner: 'Un altro miner ha trovato il blocco', logFound: 'trovato', logNewJob: 'Nuovo lavoro blocco iniziato',
+        logDifficultyChange: 'Difficoltà cambiata', logMiningStart: 'Mining iniziato!', logMiningStop: 'Mining fermato',
+        logHashFound: 'Hash trovato', logMinedByMe: 'Minato da me!'
     },
 
     // 폴란드어
@@ -555,7 +635,12 @@ const translations = {
         rewardAdTitle: '🎬 Obejrzyj Reklamę za 2x Nagrodę!', rewardAdDesc: 'Obejrzyj 30-sekundową reklamę aby podwoić nagrodę',
         watchAd: 'Obejrzyj Reklamę (2x Nagroda)', skip: 'Pomiń', doubleReward: '🎬 2x Nagroda!',
         gameComplete: '🎉 Gra Ukończona!', coinsEarned: 'Monety Zdobyte!', confirm: 'OK',
-        adArea: '📢 Obszar Reklam', inGameAd: 'Wyświetlanie w grze', rewardAdAfter: 'Reklama z nagrodą po grze'
+        adArea: '📢 Obszar Reklam', inGameAd: 'Wyświetlanie w grze', rewardAdAfter: 'Reklama z nagrodą po grze',
+        logSystemInit: 'System zainicjowany', logConnected: 'Połączono z serwerem', logDisconnected: 'Rozłączono. Ponowne łączenie...',
+        logError: 'Błąd połączenia', logMinerId: 'ID Górnika', logBlockMined: 'Blok', logMiningSuccess: 'Kopanie udane!',
+        logOtherMiner: 'Inny górnik znalazł blok', logFound: 'znaleziono', logNewJob: 'Nowe zadanie bloku rozpoczęte',
+        logDifficultyChange: 'Trudność zmieniona', logMiningStart: 'Kopanie rozpoczęte!', logMiningStop: 'Kopanie zatrzymane',
+        logHashFound: 'Hash znaleziony', logMinedByMe: 'Wykopane przeze mnie!'
     }
 };
 

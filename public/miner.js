@@ -15,10 +15,15 @@ class CoinMiner {
         this.init();
     }
 
+    // i18n 헬퍼 함수
+    t(key, fallback) {
+        return (typeof window.t === 'function') ? window.t(key) : fallback;
+    }
+
     init() {
         this.connectWebSocket();
         this.setupUI();
-        this.addLog('시스템 초기화 완료', 'info');
+        this.addLog(this.t('logSystemInit', '시스템 초기화 완료'), 'info');
     }
 
     connectWebSocket() {
@@ -26,7 +31,7 @@ class CoinMiner {
         this.ws = new WebSocket(`${protocol}//${window.location.host}`);
 
         this.ws.onopen = () => {
-            this.addLog('서버에 연결됨', 'success');
+            this.addLog(this.t('logConnected', '서버에 연결됨'), 'success');
         };
 
         this.ws.onmessage = (event) => {
@@ -35,12 +40,12 @@ class CoinMiner {
         };
 
         this.ws.onclose = () => {
-            this.addLog('서버 연결 끊김. 재연결 시도...', 'warning');
+            this.addLog(this.t('logDisconnected', '서버 연결 끊김. 재연결 시도...'), 'warning');
             setTimeout(() => this.connectWebSocket(), 3000);
         };
 
         this.ws.onerror = (error) => {
-            this.addLog('연결 오류 발생', 'warning');
+            this.addLog(this.t('logError', '연결 오류 발생'), 'warning');
         };
     }
 
@@ -51,20 +56,20 @@ class CoinMiner {
                 this.lastBlock = data.lastBlock;
                 this.difficulty = data.difficulty;
                 this.updateUI();
-                this.addLog(`채굴자 ID: ${this.minerId.substring(0, 8)}...`, 'info');
+                this.addLog(`${this.t('logMinerId', '채굴자 ID')}: ${this.minerId.substring(0, 8)}...`, 'info');
                 break;
 
             case 'newBlock':
                 if (data.minedBy === this.minerId) {
                     this.myCoins += 10;
                     this.myBlocks++;
-                    this.addLog(`블록 #${data.block.index} 채굴 성공! +10 코인`, 'success');
+                    this.addLog(`${this.t('logBlockMined', '블록')} #${data.block.index} ${this.t('logMiningSuccess', '채굴 성공!')} +10 ${this.t('coins', '코인')}`, 'success');
                     // Firebase에 코인 저장
                     if (typeof addMinedBlock === 'function') {
                         addMinedBlock(10);
                     }
                 } else {
-                    this.addLog(`다른 채굴자가 블록 #${data.block.index} 발견`, 'info');
+                    this.addLog(`${this.t('logOtherMiner', '다른 채굴자가 블록')} #${data.block.index} ${this.t('logFound', '발견')}`, 'info');
                 }
                 this.addBlock(data.block, data.minedBy === this.minerId);
                 this.updateUI();
@@ -75,7 +80,7 @@ class CoinMiner {
                 this.difficulty = data.difficulty;
                 this.nonce = 0;
                 if (this.isMining) {
-                    this.addLog('새 블록 작업 시작', 'info');
+                    this.addLog(this.t('logNewJob', '새 블록 작업 시작'), 'info');
                 }
                 break;
 
@@ -88,7 +93,7 @@ class CoinMiner {
             case 'difficultyChange':
                 this.difficulty = data.difficulty;
                 document.getElementById('difficulty').textContent = this.difficulty;
-                this.addLog(`난이도 변경: ${this.difficulty}`, 'warning');
+                this.addLog(`${this.t('logDifficultyChange', '난이도 변경')}: ${this.difficulty}`, 'warning');
                 break;
         }
     }
@@ -114,10 +119,10 @@ class CoinMiner {
 
         const btn = document.getElementById('mineBtn');
         btn.classList.add('mining');
-        btn.querySelector('.btn-text').textContent = '채굴 중지';
+        btn.querySelector('.btn-text').textContent = this.t('stopMining', '채굴 중지');
 
-        document.getElementById('miningStatus').textContent = '채굴 중...';
-        this.addLog('채굴 시작!', 'success');
+        document.getElementById('miningStatus').textContent = this.t('mining', '채굴 중...');
+        this.addLog(this.t('logMiningStart', '채굴 시작!'), 'success');
 
         this.mine();
     }
@@ -127,10 +132,10 @@ class CoinMiner {
 
         const btn = document.getElementById('mineBtn');
         btn.classList.remove('mining');
-        btn.querySelector('.btn-text').textContent = '채굴 시작';
+        btn.querySelector('.btn-text').textContent = this.t('startMining', '채굴 시작');
 
-        document.getElementById('miningStatus').textContent = '대기 중';
-        this.addLog('채굴 중지', 'info');
+        document.getElementById('miningStatus').textContent = this.t('waiting', '대기 중');
+        this.addLog(this.t('logMiningStop', '채굴 중지'), 'info');
     }
 
     mine() {
@@ -182,7 +187,7 @@ class CoinMiner {
         }));
 
         document.getElementById('currentHash').textContent = hash;
-        this.addLog(`해시 발견: ${hash.substring(0, 20)}...`, 'success');
+        this.addLog(`${this.t('logHashFound', '해시 발견')}: ${hash.substring(0, 20)}...`, 'success');
     }
 
     updateMiningUI() {
@@ -246,12 +251,13 @@ class CoinMiner {
         blockItem.className = `block-item${isMine ? ' mine' : ''}`;
 
         const time = new Date(block.timestamp).toLocaleTimeString();
+        const minedByMe = this.t('logMinedByMe', '내가 채굴!');
 
         blockItem.innerHTML = `
             <div class="block-number">#${block.index}</div>
             <div class="block-hash">${block.hash}</div>
             <div class="block-info">
-                ${isMine ? '내가 채굴!' : block.minedBy.substring(0, 8) + '...'}<br>
+                ${isMine ? minedByMe : block.minedBy.substring(0, 8) + '...'}<br>
                 ${time}
             </div>
         `;
