@@ -6,20 +6,8 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// CSP 헤더 설정 (Firebase 허용)
-app.use((req, res, next) => {
-    res.setHeader(
-        'Content-Security-Policy',
-        "default-src 'self'; " +
-        "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://apis.google.com https://pagead2.googlesyndication.com https://cdnjs.cloudflare.com; " +
-        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
-        "font-src 'self' https://fonts.gstatic.com; " +
-        "img-src 'self' data: https: blob:; " +
-        "connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.firebase.google.com wss://*.firebaseio.com https://firestore.googleapis.com https://identitytoolkit.googleapis.com; " +
-        "frame-src 'self' https://accounts.google.com https://*.firebaseapp.com;"
-    );
-    next();
-});
+// CSP 헤더 제거 (Firebase/Google 호환성 문제로 비활성화)
+// 브라우저 기본 보안 정책 사용
 
 // 블록체인 데이터
 let blockchain = [];
