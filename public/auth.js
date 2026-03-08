@@ -22,6 +22,17 @@ function initFirebase() {
 
         console.log('Firebase 초기화 완료');
 
+        // 모바일 redirect 로그인 결과 처리
+        firebase.auth().getRedirectResult()
+            .then((result) => {
+                if (result.user) {
+                    console.log('Redirect 로그인 성공:', result.user.displayName);
+                }
+            })
+            .catch((error) => {
+                console.error('Redirect 로그인 실패:', error);
+            });
+
         // 인증 상태 감시
         firebase.auth().onAuthStateChanged(async (user) => {
             if (user) {
@@ -41,17 +52,33 @@ function initFirebase() {
     }
 }
 
+// 모바일 기기 감지
+function isMobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
 // Google 로그인
 function loginWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider)
-        .then((result) => {
-            console.log('로그인 성공:', result.user.displayName);
-        })
-        .catch((error) => {
-            console.error('로그인 실패:', error);
-            alert('로그인에 실패했습니다: ' + error.message);
-        });
+
+    // 모바일에서는 redirect 방식 사용 (팝업 차단 문제 해결)
+    if (isMobile()) {
+        firebase.auth().signInWithRedirect(provider);
+    } else {
+        firebase.auth().signInWithPopup(provider)
+            .then((result) => {
+                console.log('로그인 성공:', result.user.displayName);
+            })
+            .catch((error) => {
+                console.error('로그인 실패:', error);
+                // 팝업 차단 시 redirect로 재시도
+                if (error.code === 'auth/popup-blocked') {
+                    firebase.auth().signInWithRedirect(provider);
+                } else {
+                    alert('로그인에 실패했습니다: ' + error.message);
+                }
+            });
+    }
 }
 
 // 로그아웃

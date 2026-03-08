@@ -1,4 +1,10 @@
 // 게임 시스템
+
+// i18n 헬퍼 함수
+function gt(key, fallback) {
+    return (typeof window.t === 'function') ? window.t(key) : fallback;
+}
+
 class GameManager {
     constructor() {
         this.totalCoins = 0;
@@ -66,26 +72,28 @@ function startGame(gameType) {
 }
 
 // 인게임 하단 광고 HTML
-const inGameAdHTML = `
+function getInGameAdHTML() {
+    return `
     <div class="ingame-ad">
         <div class="ad-placeholder ingame" data-slot="inGame">
-            <span>📢 광고 (320x100)</span>
-            <small>게임 중 노출 - 높은 전환율</small>
+            <span>${gt('adArea', '📢 광고 영역')} (320x100)</span>
+            <small>${gt('inGameAd', '게임 중 노출')}</small>
         </div>
     </div>
-`;
+    `;
+}
 
 // 1. 스피드 클리커 게임
 function startClickerGame(container) {
     container.innerHTML = `
         <div class="clicker-game">
-            <h2>👆 스피드 클리커</h2>
-            <p>10초 안에 최대한 많이 클릭하세요!</p>
+            <h2>👆 ${gt('clickerGame', '스피드 클리커')}</h2>
+            <p>${gt('clickerDesc', '10초 안에 최대한 많이 클릭하세요!')}</p>
             <div class="timer" id="clickerTimer">10</div>
-            <div class="score">클릭: <span id="clickCount">0</span></div>
+            <div class="score">${gt('click', '클릭')}: <span id="clickCount">0</span></div>
             <button class="click-btn" id="clickBtn" disabled>👆</button>
-            <button class="start-btn" id="startClicker" onclick="beginClickerGame()">시작!</button>
-            ${inGameAdHTML}
+            <button class="start-btn" id="startClicker" onclick="beginClickerGame()">${gt('start', '시작!')}</button>
+            ${getInGameAdHTML()}
         </div>
     `;
 }
@@ -126,7 +134,7 @@ function endClickerGame(clicks) {
     if (coins >= 20) {
         gameManager.showRewardAd(coins);
     } else {
-        gameManager.showResult('🎉 게임 완료!', clicks, '클릭', coins);
+        gameManager.showResult(gt('gameComplete', '🎉 게임 완료!'), clicks, gt('click', '클릭'), coins);
     }
 }
 
@@ -134,12 +142,12 @@ function endClickerGame(clicks) {
 function startReactionGame(container) {
     container.innerHTML = `
         <div class="reaction-game">
-            <h2>⚡ 반응속도 테스트</h2>
-            <p>빨간색에서 초록색으로 바뀌면 빠르게 클릭!</p>
-            <div class="reaction-box waiting" id="reactionBox">기다리세요...</div>
+            <h2>⚡ ${gt('reactionGame', '반응속도 테스트')}</h2>
+            <p>${gt('reactionDesc', '초록색이 되면 빠르게 클릭!')}</p>
+            <div class="reaction-box waiting" id="reactionBox">${gt('wait', '기다리세요...')}</div>
             <div class="reaction-result" id="reactionResult"></div>
-            <button class="start-btn" id="startReaction" onclick="beginReactionGame()">시작!</button>
-            ${inGameAdHTML}
+            <button class="start-btn" id="startReaction" onclick="beginReactionGame()">${gt('start', '시작!')}</button>
+            ${getInGameAdHTML()}
         </div>
     `;
 }
@@ -153,15 +161,15 @@ function beginReactionGame() {
     document.getElementById('startReaction').style.display = 'none';
 
     box.className = 'reaction-box waiting';
-    box.textContent = '기다리세요...';
+    box.textContent = gt('wait', '기다리세요...');
     result.textContent = '';
 
     // 너무 빨리 클릭하면 실패
     box.onclick = () => {
         if (box.classList.contains('waiting')) {
             clearTimeout(reactionTimeout);
-            box.textContent = '너무 빨라요! 😅';
-            result.textContent = '다시 시도하세요';
+            box.textContent = gt('tooFast', '너무 빨라요! 😅');
+            result.textContent = gt('tryAgain', '다시 시도하세요');
             setTimeout(() => {
                 document.getElementById('startReaction').style.display = 'block';
             }, 1500);
@@ -177,7 +185,7 @@ function beginReactionGame() {
     const delay = 1000 + Math.random() * 3000;
     reactionTimeout = setTimeout(() => {
         box.className = 'reaction-box ready';
-        box.textContent = '클릭!';
+        box.textContent = gt('clickNow', '클릭!');
         reactionStartTime = Date.now();
     }, delay);
 }
@@ -188,16 +196,16 @@ function endReactionGame(time) {
 
     if (time < 200) {
         coins = 30;
-        message = '⚡ 번개 반사신경!';
+        message = gt('lightning', '⚡ 번개 반사신경!');
     } else if (time < 300) {
         coins = 20;
-        message = '🚀 아주 빠름!';
+        message = gt('veryFast', '🚀 아주 빠름!');
     } else if (time < 400) {
         coins = 10;
-        message = '👍 좋아요!';
+        message = gt('good', '👍 좋아요!');
     } else {
         coins = 5;
-        message = '🐢 조금 느려요';
+        message = gt('slow', '🐢 조금 느려요');
     }
 
     setTimeout(() => {
@@ -214,17 +222,17 @@ function startMemoryGame(container) {
     memoryLevel = 1;
     container.innerHTML = `
         <div class="memory-game">
-            <h2>🧠 숫자 기억하기</h2>
-            <p>나타나는 숫자를 순서대로 기억하세요!</p>
-            <div class="memory-level" id="memoryLevel">레벨: 1</div>
+            <h2>🧠 ${gt('memoryGame', '숫자 기억하기')}</h2>
+            <p>${gt('memoryDesc', '나타나는 숫자를 순서대로 기억하세요!')}</p>
+            <div class="memory-level" id="memoryLevel">${gt('level', '레벨')}: 1</div>
             <div class="memory-display" id="memoryDisplay">-</div>
             <div class="memory-input" id="memoryInput" style="display:none;">
                 ${[1,2,3,4,5,6,7,8,9,0].map(n =>
                     `<button onclick="inputMemoryNumber(${n})">${n}</button>`
                 ).join('')}
             </div>
-            <button class="start-btn" id="startMemory" onclick="beginMemoryRound()">시작!</button>
-            ${inGameAdHTML}
+            <button class="start-btn" id="startMemory" onclick="beginMemoryRound()">${gt('start', '시작!')}</button>
+            ${getInGameAdHTML()}
         </div>
     `;
 }
@@ -257,7 +265,7 @@ function beginMemoryRound() {
                 setTimeout(showNext, 300);
             }, 800);
         } else {
-            display.textContent = '입력하세요!';
+            display.textContent = gt('enterNumbers', '입력하세요!');
             input.style.display = 'flex';
         }
     };
@@ -277,19 +285,19 @@ function inputMemoryNumber(num) {
 
         if (correct) {
             memoryLevel++;
-            document.getElementById('memoryLevel').textContent = `레벨: ${memoryLevel}`;
+            document.getElementById('memoryLevel').textContent = `${gt('level', '레벨')}: ${memoryLevel}`;
 
             if (memoryLevel > 5) {
                 endMemoryGame(true);
             } else {
-                display.textContent = '정답! 🎉';
+                display.textContent = gt('correct', '정답! 🎉');
                 setTimeout(() => {
                     document.getElementById('startMemory').style.display = 'block';
-                    document.getElementById('startMemory').textContent = '다음 레벨';
+                    document.getElementById('startMemory').textContent = gt('nextLevel', '다음 레벨');
                 }, 1000);
             }
         } else {
-            display.textContent = '틀렸어요 😢';
+            display.textContent = gt('wrong', '틀렸어요 😢');
             endMemoryGame(false);
         }
 
@@ -307,9 +315,9 @@ function endMemoryGame(completed) {
             gameManager.showRewardAd(coins);
         } else {
             gameManager.showResult(
-                completed ? '🏆 마스터!' : '게임 오버',
+                completed ? gt('master', '🏆 마스터!') : gt('gameOver', '게임 오버'),
                 level,
-                '레벨',
+                gt('level', '레벨'),
                 coins
             );
         }
@@ -322,21 +330,21 @@ const slotSymbols = ['🍎', '🍋', '🍇', '💎', '7️⃣', '🍀'];
 function startSlotGame(container) {
     container.innerHTML = `
         <div class="slot-game">
-            <h2>🎰 럭키 슬롯</h2>
-            <p>광고 시청 후 슬롯에 도전하세요!</p>
+            <h2>🎰 ${gt('slotGame', '럭키 슬롯')}</h2>
+            <p>${gt('slotDesc', '광고 시청 후 슬롯에 도전하세요!')}</p>
             <div class="slot-machine">
                 <div class="slot-reel" id="reel1">❓</div>
                 <div class="slot-reel" id="reel2">❓</div>
                 <div class="slot-reel" id="reel3">❓</div>
             </div>
             <button class="spin-btn" id="spinBtn" onclick="watchAdForSlot()">
-                📺 광고 보고 돌리기
+                ${gt('watchAdSpin', '📺 광고 보고 돌리기')}
             </button>
             <div class="slot-info">
-                <p>💎💎💎 = 200코인 | 7️⃣7️⃣7️⃣ = 100코인</p>
-                <p>같은 심볼 3개 = 50코인 | 2개 = 10코인</p>
+                <p>💎💎💎 = 200${gt('coins', '코인')} | 7️⃣7️⃣7️⃣ = 100${gt('coins', '코인')}</p>
+                <p>${gt('threeMatch', '3개 매치')} = 50${gt('coins', '코인')} | ${gt('twoMatch', '2개 매치')} = 10${gt('coins', '코인')}</p>
             </div>
-            ${inGameAdHTML}
+            ${getInGameAdHTML()}
         </div>
     `;
 }
@@ -345,16 +353,16 @@ function watchAdForSlot() {
     // 슬롯 전 광고 시청 (간소화)
     const btn = document.getElementById('spinBtn');
     btn.disabled = true;
-    btn.textContent = '광고 시청 중... (3초)';
+    btn.textContent = `${gt('watchingAd', '광고 시청 중...')} (3s)`;
 
     let count = 3;
     const interval = setInterval(() => {
         count--;
         if (count > 0) {
-            btn.textContent = `광고 시청 중... (${count}초)`;
+            btn.textContent = `${gt('watchingAd', '광고 시청 중...')} (${count}s)`;
         } else {
             clearInterval(interval);
-            btn.textContent = '🎰 돌리기!';
+            btn.textContent = gt('spin', '🎰 돌리기!');
             btn.onclick = spinSlot;
             btn.disabled = false;
         }
@@ -406,31 +414,31 @@ function calculateSlotWin(results) {
     if (results[0] === results[1] && results[1] === results[2]) {
         if (results[0] === '💎') {
             coins = 200;
-            message = '💎 잭팟!!! 💎';
+            message = gt('jackpot', '💎 잭팟!!! 💎');
         } else if (results[0] === '7️⃣') {
             coins = 100;
-            message = '7️⃣ 럭키 세븐! 7️⃣';
+            message = gt('luckySeven', '7️⃣ 럭키 세븐! 7️⃣');
         } else {
             coins = 50;
-            message = '🎉 3개 매치!';
+            message = gt('threeMatch', '🎉 3개 매치!');
         }
     }
     // 2개 같음
     else if (results[0] === results[1] || results[1] === results[2] || results[0] === results[2]) {
         coins = 10;
-        message = '👍 2개 매치';
+        message = gt('twoMatch', '👍 2개 매치');
     }
     // 꽝
     else {
         coins = 2; // 참가 보상
-        message = '😅 다음 기회에...';
+        message = gt('nextTime', '😅 다음 기회에...');
     }
 
     setTimeout(() => {
         gameManager.showResult(message, results.join(' '), '', coins);
         // 버튼 리셋
         const btn = document.getElementById('spinBtn');
-        btn.textContent = '📺 광고 보고 돌리기';
+        btn.textContent = gt('watchAdSpin', '📺 광고 보고 돌리기');
         btn.onclick = watchAdForSlot;
         btn.disabled = false;
     }, 500);
@@ -445,11 +453,11 @@ function watchRewardAd() {
     btn.disabled = true;
 
     let seconds = 5; // 실제로는 30초지만 데모용으로 5초
-    timer.textContent = `${seconds}초`;
+    timer.textContent = `${seconds}s`;
 
     const interval = setInterval(() => {
         seconds--;
-        timer.textContent = `${seconds}초`;
+        timer.textContent = `${seconds}s`;
         progress.style.width = `${((5 - seconds) / 5) * 100}%`;
 
         if (seconds <= 0) {
@@ -458,14 +466,14 @@ function watchRewardAd() {
 
             // 2배 보상
             const doubledReward = gameManager.pendingReward * 2;
-            gameManager.showResult('🎬 2배 보상!', doubledReward, '코인', doubledReward);
+            gameManager.showResult(gt('doubleReward', '🎬 2배 보상!'), doubledReward, gt('coins', '코인'), doubledReward);
         }
     }, 1000);
 }
 
 function skipAd() {
     document.getElementById('rewardAdModal').classList.remove('active');
-    gameManager.showResult('🎉 게임 완료!', gameManager.pendingReward, '코인', gameManager.pendingReward);
+    gameManager.showResult(gt('gameComplete', '🎉 게임 완료!'), gameManager.pendingReward, gt('coins', '코인'), gameManager.pendingReward);
 }
 
 function closeResult() {
